@@ -16,7 +16,6 @@ public interface StorageCopy {
     public List<Copy> getAll() throws Exception;
     public boolean setCopy(Copy copy)throws Exception;
     public Copy getCopy(Copy copy)throws Exception;
-    public List<Copy> getCopy(int id)throws Exception;
     public boolean setCopy(List<Copy> copies)throws Exception;
     public boolean changeCopy(Copy copy)throws Exception;
      public List<Copy> getAllEquipment(int id) throws Exception;

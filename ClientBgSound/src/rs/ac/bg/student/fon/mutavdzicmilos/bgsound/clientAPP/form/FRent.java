@@ -5,17 +5,9 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.CopyTableModel;
+import javax.swing.ImageIcon;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
 
 /**
  *
@@ -31,9 +23,9 @@ public class FRent extends javax.swing.JFrame {
     public FRent() {
 
         initComponents();
-        fillForm();
+        this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -49,31 +41,21 @@ public class FRent extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tRent = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        bRent = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tChoose = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        bSelect = new javax.swing.JButton();
+        bRemove = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         cClientChoose.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        cClientChoose.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cClientChooseActionPerformed(evt);
-            }
-        });
 
         bSet.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         bSet.setText("Set");
-        bSet.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSetActionPerformed(evt);
-            }
-        });
 
         tRent.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -112,13 +94,8 @@ public class FRent extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jButton1.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
-        jButton1.setText("RENT");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        bRent.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
+        bRent.setText("RENT");
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         jLabel2.setText("Client");
@@ -139,21 +116,11 @@ public class FRent extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         jLabel3.setText("Equipment to choose:");
 
-        jButton2.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton2.setText("SELECT");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
+        bSelect.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        bSelect.setText("SELECT");
 
-        jButton3.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
-        jButton3.setText("REMOVE");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
+        bRemove.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
+        bRemove.setText("REMOVE");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -167,8 +134,8 @@ public class FRent extends javax.swing.JFrame {
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))))
+                            .addComponent(bSelect, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(bRemove, javax.swing.GroupLayout.DEFAULT_SIZE, 116, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -180,9 +147,9 @@ public class FRent extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(bSelect, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(bRemove, javax.swing.GroupLayout.PREFERRED_SIZE, 51, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
 
@@ -198,7 +165,7 @@ public class FRent extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bSet, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bRent, javax.swing.GroupLayout.PREFERRED_SIZE, 426, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(60, 60, 60))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -212,7 +179,7 @@ public class FRent extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bRent, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cClientChoose, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bSet, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -225,80 +192,37 @@ public class FRent extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void addSetActionListener(java.awt.event.ActionListener e) {
+        bSet.addActionListener(e);
+    }
 
-    private void bSetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSetActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new FFindClient(clients, this);
-        frame.setVisible(true);
-    }//GEN-LAST:event_bSetActionPerformed
+    public void addSelectActionListener(java.awt.event.ActionListener e) {
+        bSelect.addActionListener(e);
+    }
 
-    private void cClientChooseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cClientChooseActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cClientChooseActionPerformed
+    public void addRemoveActionListener(java.awt.event.ActionListener e) {
+        bRemove.addActionListener(e);
+    }
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        if (tChoose.getSelectedRow() == -1) {
-            return;
-        }
-        CopyTableModel tm = (CopyTableModel) tChoose.getModel();
-        CopyTableModel tc = (CopyTableModel) tRent.getModel();
-        Copy c = tm.getCopy(tChoose.getSelectedRow());
-        tc.setCopy(c);
-        tm.removeCopy(tChoose.getSelectedRow());
-
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-        if (tRent.getSelectedRow() == -1) {
-            return;
-        }
-        CopyTableModel tm = (CopyTableModel) tChoose.getModel();
-        CopyTableModel tc = (CopyTableModel) tRent.getModel();
-        Copy c = tm.getCopy(tRent.getSelectedRow());
-        tm.setCopy(c);
-        tc.removeCopy(tRent.getSelectedRow());
-    }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         // TODO add your handling code here:
-         if(cClientChoose.getSelectedIndex()==-1){
-             JOptionPane.showMessageDialog(null, "Please choose client");
-             return;
-         }
-         Client client= (Client) cClientChoose.getSelectedItem();
-         List<Copy> copies=((CopyTableModel)tRent.getModel()).getAll();
-         if(copies==null || copies.size()==0){
-             JOptionPane.showMessageDialog(null, "Please choose copies to rent");
-             return;
-         }
-         List<Rent> rents=new ArrayList<>();
-         for(Copy c:copies){
-             Rent r= new Rent();
-             r.setClient(client);
-             r.setCopy(c);
-             r.setDateFrom(new Date());
-             rents.add(r);
-         }
-         if(ThreadSaver.getInstance().getModel().saveRents(rents)){
-             JOptionPane.showMessageDialog(null, "Success");
-             fillForm();
-             return;
-         }
-         JOptionPane.showMessageDialog(null, "Fail");
-    }//GEN-LAST:event_jButton1ActionPerformed
-
+    public void addRentActionListener(java.awt.event.ActionListener e) {
+        bRent.addActionListener(e);
+    }
+    public void addtChooseMouseListener(java.awt.event.MouseListener m){
+        tChoose.addMouseListener(m);
+    }
+    public void addtRentMouseListener(java.awt.event.MouseListener m){
+        tRent.addMouseListener(m);
+    }
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bRemove;
+    private javax.swing.JButton bRent;
+    private javax.swing.JButton bSelect;
     private javax.swing.JButton bSet;
     private javax.swing.JComboBox<rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client> cClientChoose;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -309,24 +233,83 @@ public class FRent extends javax.swing.JFrame {
     private javax.swing.JTable tChoose;
     private javax.swing.JTable tRent;
     // End of variables declaration//GEN-END:variables
-
-    private void fillForm() {
-        clients = ThreadSaver.getInstance().getModel().getAllClients();
-        for (Client c : clients) {
-            cClientChoose.addItem(c);
-        }
-        cClientChoose.setSelectedIndex(-1);
-        tChoose.setModel(new CopyTableModel(ThreadSaver.getInstance().getModel().getAllCopies()));
-        tRent.setModel(new CopyTableModel(null));
-        tChoose.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tChoose.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tRent.getColumnModel().getColumn(0).setPreferredWidth(30);
-        tRent.getColumnModel().getColumn(4).setPreferredWidth(30);
-        tRent.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        tChoose.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-    }
-
     public void setIndex(int index) {
         cClientChoose.setSelectedIndex(index);
+    }
+
+    public List<Client> getClients() {
+        return clients;
+    }
+
+    public void setClients(List<Client> clients) {
+        this.clients = clients;
+    }
+
+    public javax.swing.JComboBox<rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client> getcClientChoose() {
+        return cClientChoose;
+    }
+
+    public void setcClientChoose(javax.swing.JComboBox<rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client> cClientChoose) {
+        this.cClientChoose = cClientChoose;
+    }
+
+    public javax.swing.JTable gettChoose() {
+        return tChoose;
+    }
+
+    public void settChoose(javax.swing.JTable tChoose) {
+        this.tChoose = tChoose;
+    }
+
+    public javax.swing.JTable gettRent() {
+        return tRent;
+    }
+
+    public void settRent(javax.swing.JTable tRent) {
+        this.tRent = tRent;
+    }
+
+    public javax.swing.JButton getbRemove() {
+        return bRemove;
+    }
+
+    public javax.swing.JButton getbRent() {
+        return bRent;
+    }
+
+    public javax.swing.JButton getbSelect() {
+        return bSelect;
+    }
+
+    public javax.swing.JButton getbSet() {
+        return bSet;
+    }
+
+    public javax.swing.JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public javax.swing.JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public javax.swing.JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public javax.swing.JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public javax.swing.JPanel getjPanel3() {
+        return jPanel3;
+    }
+
+    public javax.swing.JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
+
+    public javax.swing.JScrollPane getjScrollPane2() {
+        return jScrollPane2;
     }
 }

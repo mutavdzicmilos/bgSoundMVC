@@ -5,18 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.table.TableColumnModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.ClientTableModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Mode;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
 
 /**
  *
@@ -29,7 +18,6 @@ public class FSearchClient extends javax.swing.JFrame {
      */
     public FSearchClient() {
         initComponents();
-        fillform();
     }
 
     /**
@@ -52,7 +40,7 @@ public class FSearchClient extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tClients = new javax.swing.JTable();
-        jButton1 = new javax.swing.JButton();
+        bView = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Search Client");
@@ -67,31 +55,9 @@ public class FSearchClient extends javax.swing.JFrame {
 
         bSearchByID.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bSearchByID.setText("Search");
-        bSearchByID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSearchByIDActionPerformed(evt);
-            }
-        });
-
-        tID.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tIDFocusGained(evt);
-            }
-        });
 
         bSearchByName.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         bSearchByName.setText("Search");
-        bSearchByName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSearchByNameActionPerformed(evt);
-            }
-        });
-
-        tName.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tNameFocusGained(evt);
-            }
-        });
 
         jLabel3.setFont(new java.awt.Font("sansserif", 1, 18)); // NOI18N
         jLabel3.setText("NAME:");
@@ -149,13 +115,8 @@ public class FSearchClient extends javax.swing.JFrame {
         });
         jScrollPane1.setViewportView(tClients);
 
-        jButton1.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
-        jButton1.setText("VIEW");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        bView.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
+        bView.setText("VIEW");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,7 +128,7 @@ public class FSearchClient extends javax.swing.JFrame {
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bView, javax.swing.GroupLayout.PREFERRED_SIZE, 373, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(134, 134, 134))
         );
         jPanel2Layout.setVerticalGroup(
@@ -176,7 +137,7 @@ public class FSearchClient extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 215, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bView, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -210,61 +171,29 @@ public class FSearchClient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void addbViewActionListener(java.awt.event.ActionListener e) {
+        bView.addActionListener(e);
+    }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        int number = tClients.getSelectedRow();
-        if (number < 0) {
-            JOptionPane.showMessageDialog(null, "Please select the client", "Invalid selection", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        ClientTableModel tm = (ClientTableModel) tClients.getModel();
-        Client client = tm.getClient(number);
-        JFrame frame = new FNewClient(client, Mode.Mode_View,this);
-        frame.setVisible(true);
+    public void addbIDActionListener(java.awt.event.ActionListener e) {
+        bSearchByID.addActionListener(e);
+    }
 
+    public void addNameActionListener(java.awt.event.ActionListener e) {
+        bSearchByName.addActionListener(e);
+    }
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    public void addClientsFocusListener(java.awt.event.FocusListener e) {
+        tClients.addFocusListener(e);
+    }
 
-    private void tIDFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tIDFocusGained
-        // TODO add your handling code here:
-        bSearchByName.setEnabled(false);
-        bSearchByID.setEnabled(true);
-    }//GEN-LAST:event_tIDFocusGained
+    public void addIDFocusListener(java.awt.event.FocusListener e) {
+        tID.addFocusListener(e);
+    }
 
-    private void tNameFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tNameFocusGained
-        // TODO add your handling code here:
-        bSearchByName.setEnabled(true);
-        bSearchByID.setEnabled(false);
-    }//GEN-LAST:event_tNameFocusGained
-
-    private void bSearchByNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchByNameActionPerformed
-        if (tName.getText().equals("")) {
-            fillform();
-            return;
-        }
-        try {
-
-            List<Client> clients = ThreadSaver.getInstance().getModel().getClientsByName(tName.getText().trim());
-            tClients.setModel(new ClientTableModel(clients));
-
-        } catch (Exception ex) {
-            Logger.getLogger(FSearchClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }//GEN-LAST:event_bSearchByNameActionPerformed
-
-    private void bSearchByIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchByIDActionPerformed
-        if (tID.getText().equals("")) {
-            fillform();
-            return;
-        }
-        try {
-            Client client = ThreadSaver.getInstance().getModel().getClientsByID(Integer.parseInt(tID.getText().trim()));
-            tClients.setModel(new ClientTableModel(client));
-        } catch (Exception e) {
-            Logger.getLogger(FSearchClient.class.getName()).log(Level.SEVERE, null, e);
-        }
-    }//GEN-LAST:event_bSearchByIDActionPerformed
-
+    public void addNameFocusListener(java.awt.event.FocusListener e) {
+        tName.addFocusListener(e);
+    }
     private void tClientsFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tClientsFocusGained
         // TODO add your handling code here:
         ClientTableModel tm = (ClientTableModel) tClients.getModel();
@@ -278,7 +207,7 @@ public class FSearchClient extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bSearchByID;
     private javax.swing.JButton bSearchByName;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bView;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -290,21 +219,63 @@ public class FSearchClient extends javax.swing.JFrame {
     private javax.swing.JTextField tName;
     // End of variables declaration//GEN-END:variables
 
-    public void fillform() {
-        setLocationRelativeTo(null);
-        //popravi
-        this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
-        try {
-            List<Client> clients = ThreadSaver.getInstance().getModel().getAllClients();
+    public javax.swing.JTable gettClients() {
+        return tClients;
+    }
 
-            tClients.setModel(new ClientTableModel(clients));
-            tClients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            TableColumnModel tm = tClients.getColumnModel();
-            tm.getColumn(0).setMinWidth(50);
-            tm.getColumn(0).setMaxWidth(50);
-        } catch (Exception ex) {
-            Logger.getLogger(FSearchClient.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void settClients(javax.swing.JTable tClients) {
+        this.tClients = tClients;
+    }
 
+    public javax.swing.JTextField gettID() {
+        return tID;
+    }
+
+    public void settID(javax.swing.JTextField tID) {
+        this.tID = tID;
+    }
+
+    public javax.swing.JTextField gettName() {
+        return tName;
+    }
+
+    public void settName(javax.swing.JTextField tName) {
+        this.tName = tName;
+    }
+
+    public javax.swing.JButton getbSearchByID() {
+        return bSearchByID;
+    }
+
+    public javax.swing.JButton getbSearchByName() {
+        return bSearchByName;
+    }
+
+    public javax.swing.JButton getbView() {
+        return bView;
+    }
+
+    public javax.swing.JLabel getjLabel1() {
+        return jLabel1;
+    }
+
+    public javax.swing.JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public javax.swing.JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public javax.swing.JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public javax.swing.JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public javax.swing.JScrollPane getjScrollPane1() {
+        return jScrollPane1;
     }
 }

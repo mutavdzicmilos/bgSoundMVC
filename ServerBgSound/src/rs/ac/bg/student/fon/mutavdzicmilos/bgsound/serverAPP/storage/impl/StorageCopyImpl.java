@@ -35,10 +35,9 @@ public class StorageCopyImpl implements StorageCopy {
             while (rs.next()) {
                 Integer id = rs.getInt("c.copyid");
 
-
                 Equipment eq;
                 eq = new Equipment(rs.getInt("e.equipmentID"), rs.getString("e.connection"), rs.getString("e.specification"), rs.getString("e.name"));
-                Copy copy = new Copy(id, true  , true, eq, "");
+                Copy copy = new Copy(id, true, true, eq, "");
 
                 copies.add(copy);
             }
@@ -61,7 +60,7 @@ public class StorageCopyImpl implements StorageCopy {
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
             //not good !
-            String query = "insert into Copy(equipmentID,working,available,defect) values(?,?,?,'?')";
+            String query = "insert into Copy(equipmentID,working,available,defect) values(?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             connection.setAutoCommit(false);
             preparedStatement.setString(1, copy.getEquipment().getEquipmentID().toString());
@@ -124,33 +123,6 @@ public class StorageCopyImpl implements StorageCopy {
 
     }
 
-    @Override
-    public List<Copy> getCopy(int id) throws Exception {
-        List<Copy> save = new ArrayList<>();
-        try {
-            Connection connection = ConnectionFactory.getInstance().getConnection();
-            String query = "SELECT c.copyID,c.working,c.available,c.defect,e.specification FROM COPY c";
-            Statement statement = connection.createStatement();
-            ResultSet rs = statement.executeQuery(query);
-            while (rs.next()) {
-                Boolean working = rs.getBoolean("c.working");
-                Boolean available = rs.getBoolean("c.available");
-
-                String defect = rs.getString("c.defect");
-                save.add(new Copy(id, working, available, new Equipment(id), defect));
-
-            }
-            rs.close();
-            statement.close();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            throw new SQLException(ex.getMessage());
-        }
-
-        return save;
-
-    }
 
     @Override
     public boolean setCopy(List<Copy> copies) throws Exception {
@@ -230,7 +202,6 @@ public class StorageCopyImpl implements StorageCopy {
 
     @Override
     public boolean deleteCopy(int copyid, int eqid) throws Exception {
-        List<Copy> save = new ArrayList<>();
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
             String query = "delete from copy where copyid=" + copyid + " and equipmentid=" + eqid;

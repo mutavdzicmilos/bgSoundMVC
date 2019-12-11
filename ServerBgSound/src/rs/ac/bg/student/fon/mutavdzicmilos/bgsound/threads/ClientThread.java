@@ -42,7 +42,7 @@ class ClientThread extends Thread {
     @Override
     public void run() {
         Worker worker = null;
-        while (socket!=null || !isInterrupted() ||  !socket.isClosed()) {
+        while (socket != null || !isInterrupted() || !socket.isClosed()) {
             try {
                 ObjectInputStream stream = new ObjectInputStream(socket.getInputStream());
 
@@ -193,7 +193,7 @@ class ClientThread extends Thread {
                     }
                     case 13: {
                         int br = (Integer) receive.getObject();
-                        List<Copy> clients = ServerController.getInstance().getServiceCopy().getCopy(br);
+                        List<Copy> clients = ServerController.getInstance().getServiceCopy().getAllEquipment(br);
                         try {
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
@@ -241,9 +241,11 @@ class ClientThread extends Thread {
                         }
                         break;
                     }
-                     case 18: {
+                    case 18: {
                         List<Rent> rents = (List<Rent>) receive.getObject();
-                        for(Rent r:rents)r.setWorker(worker);
+                        for (Rent r : rents) {
+                            r.setWorker(worker);
+                        }
                         boolean help = ServerController.getInstance().getServiceRent().saveAll(rents);
                         try {
                             answer.setOperation(Answer.DONE);

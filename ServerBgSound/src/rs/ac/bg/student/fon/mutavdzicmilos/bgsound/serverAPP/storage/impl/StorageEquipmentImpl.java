@@ -91,15 +91,40 @@ public class StorageEquipmentImpl implements StorageEquipment {
             preparedStatement.setString(2, equipment.getConnection());
             preparedStatement.setString(3, equipment.getSpecification());
             int count = preparedStatement.executeUpdate();
-           
+
             if (count > 0) {
                 ResultSet rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     equipment.setEquipmentID(rs.getInt(1));
 
+                } else {
+                    connection.rollback();
+                    return null;
                 }
+
+                int br = equipment.getCopies().size();
+                String s = "insert into Copy(equipmentID,working,available,defect) values(" + equipment.getEquipmentID() + ",True,True,NULL)";
+                preparedStatement = connection.prepareStatement(s, Statement.RETURN_GENERATED_KEYS);
+                for (int i = 0; i < br; i++) {
+
+                    int ia = preparedStatement.executeUpdate();
+                    if (ia == 0) {
+                        connection.rollback();
+                        return null;
+                    } else {
+                        rs = preparedStatement.getGeneratedKeys();
+                        System.out.println("here");
+                        if (rs.next()) {
+                            equipment.getCopies().get(i).setCopyID(rs.getInt(1));
+                        } else {
+                            connection.rollback();
+                            return null;
+                        }
+                    }
+                }
+
                 connection.commit();
-                 preparedStatement.close();
+                preparedStatement.close();
                 return equipment;
 
             } else {
@@ -183,7 +208,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
                 return true;
             }
         } catch (SQLException ex) {
-            
+
             System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }

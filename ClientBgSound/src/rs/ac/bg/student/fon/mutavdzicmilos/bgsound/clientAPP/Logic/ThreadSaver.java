@@ -8,6 +8,7 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +19,6 @@ public class ThreadSaver {
     private static ThreadSaver instance;
     private Socket socket;
     private Map<String, Object> hashmap;
-    private Model model;
 
     public static ThreadSaver getInstance() {
         if (instance == null) {
@@ -29,7 +29,7 @@ public class ThreadSaver {
 
     private ThreadSaver() {
         hashmap = new HashMap<>();
-        model = new Model();
+        checkThread();
     }
 
     public Socket getSocket() {
@@ -48,12 +48,22 @@ public class ThreadSaver {
         this.hashmap = hashmap;
     }
 
-    public Model getModel() {
-        return model;
-    }
-
-    public void setModel(Model model) {
-        this.model = model;
+    private void checkThread() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (socket != null || !socket.isClosed()) {
+                    try{
+                    }catch(Exception e){
+                        JOptionPane.showMessageDialog(null, "Disconnected from server!");
+                System.exit(0);
+                    }
+                    
+                }
+                
+            }
+        });
+        thread.start();
     }
 
 }

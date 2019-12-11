@@ -5,13 +5,8 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.Model;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Worker;
-import rs.ac.bg.student.fon.mutavdzicmilos.clientAPP.password.Password;
 
 /**
  *
@@ -28,6 +23,9 @@ public class FLogin extends javax.swing.JFrame {
         //popravi
         this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
     }
+    public void addKeyListener(java.awt.event.KeyListener e){
+    tPassword.addKeyListener( e);
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -51,18 +49,7 @@ public class FLogin extends javax.swing.JFrame {
 
         jLabel2.setText("Password");
 
-        tUsername.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tUsernameActionPerformed(evt);
-            }
-        });
-
         bLogin.setText("Login");
-        bLogin.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bLoginActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -102,32 +89,6 @@ public class FLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tUsernameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tUsernameActionPerformed
-
-    private void bLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLoginActionPerformed
-        try {
-            String username = tUsername.getText().trim();
-            String password = Password.generate(tPassword.getText(), "password");
-
-            Worker help = new Worker(username, password);
-            Worker w = ThreadSaver.getInstance().getModel().checkWorker(help);
-            if (w != null && w.getWorkerID() != null) {
-
-                ThreadSaver.getInstance().getHashmap().put("Worker", w);
-                JFrame form = new FClient();
-                form.setVisible(true);
-                dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Fail to connect with this credentials.Try again!");
-                tPassword.setText("");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }//GEN-LAST:event_bLoginActionPerformed
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bLogin;
@@ -136,4 +97,20 @@ public class FLogin extends javax.swing.JFrame {
     private javax.swing.JPasswordField tPassword;
     private javax.swing.JTextField tUsername;
     // End of variables declaration//GEN-END:variables
+
+    public void addLoginListener(ActionListener mal) {
+        bLogin.addActionListener(mal);
+    }
+
+    public javax.swing.JButton getbLogin() {
+        return bLogin;
+    }
+
+    public javax.swing.JPasswordField gettPassword() {
+        return tPassword;
+    }
+
+    public javax.swing.JTextField gettUsername() {
+        return tUsername;
+    }
 }

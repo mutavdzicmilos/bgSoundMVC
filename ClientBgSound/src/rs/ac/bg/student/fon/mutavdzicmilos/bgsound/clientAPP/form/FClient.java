@@ -5,9 +5,8 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Mode;
 
 /**
  *
@@ -51,19 +50,9 @@ public class FClient extends javax.swing.JFrame {
 
         bNewClient1.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         bNewClient1.setText("New Client");
-        bNewClient1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bNewClient1ActionPerformed(evt);
-            }
-        });
 
         bSearchClient.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         bSearchClient.setText("Search Client");
-        bSearchClient.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSearchClientActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -90,19 +79,9 @@ public class FClient extends javax.swing.JFrame {
 
         bSearchEquipment.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         bSearchEquipment.setText("Search Equipment");
-        bSearchEquipment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSearchEquipmentActionPerformed(evt);
-            }
-        });
 
         bNewEquipment.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         bNewEquipment.setText("New Equipment");
-        bNewEquipment.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bNewEquipmentActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -129,19 +108,9 @@ public class FClient extends javax.swing.JFrame {
 
         bRent.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         bRent.setText("RENT");
-        bRent.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bRentActionPerformed(evt);
-            }
-        });
 
         bDischarge.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         bDischarge.setText("DISCHARGE");
-        bDischarge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDischargeActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -191,43 +160,30 @@ public class FClient extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    public void addNewClientListener(ActionListener mal) {
+        bNewClient1.addActionListener(mal);
 
-    private void bSearchClientActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchClientActionPerformed
-        JFrame frame = new FSearchClient();
-        frame.setVisible(true);
-    }//GEN-LAST:event_bSearchClientActionPerformed
+    }
 
-    private void bNewEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewEquipmentActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new FEquipment(Mode.Mode_Add);
-        frame.setVisible(true);
-    }//GEN-LAST:event_bNewEquipmentActionPerformed
+    public void addSearchClientListener(ActionListener mal) {
+        bSearchClient.addActionListener(mal);
+    }
 
-    private void bDischargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDischargeActionPerformed
-        // TODO add your handling code here:
-        JFrame form = new FDischarge();
-        form.setVisible(true);
-    }//GEN-LAST:event_bDischargeActionPerformed
+   public void addSearchEquipmentListener(ActionListener mal) {
+        bSearchEquipment.addActionListener(mal);
+    }
 
-    private void bNewClient1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bNewClient1ActionPerformed
-        JFrame frame = new FNewClient(Mode.Mode_Add);
-        frame.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bNewClient1ActionPerformed
+   public void addNewEquipmentListener(ActionListener mal) {
+        bNewEquipment.addActionListener(mal);
+    }
 
-    private void bSearchEquipmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSearchEquipmentActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new FEquipment(Mode.Mode_View);
-        frame.setVisible(true);
-    }//GEN-LAST:event_bSearchEquipmentActionPerformed
+   public void addRentListener(ActionListener mal) {
+        bRent.addActionListener(mal);
+    }
 
-    private void bRentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRentActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new FRent();
-        frame.setVisible(true);
-        
-    }//GEN-LAST:event_bRentActionPerformed
-
+    public   void addDischargeListener(ActionListener mal) {
+        bDischarge.addActionListener(mal);
+    }
     /**
      * @param args the command line arguments
      */

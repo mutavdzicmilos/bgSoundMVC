@@ -122,9 +122,6 @@
                   </Table>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tDischargeMouseClicked"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -135,9 +132,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Deselect"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDeselectActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel2">
           <Properties>
@@ -192,9 +186,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Discharge"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDischargeActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -246,9 +237,6 @@
                   </Table>
                 </Property>
               </Properties>
-              <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tRentsMouseClicked"/>
-              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -372,9 +360,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Select"/>
               </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSelectActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>

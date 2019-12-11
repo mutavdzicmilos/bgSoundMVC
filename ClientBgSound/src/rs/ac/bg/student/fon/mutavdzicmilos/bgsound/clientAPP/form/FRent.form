@@ -31,7 +31,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Component id="bSet" min="-2" pref="97" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
-              <Component id="jButton1" min="-2" pref="426" max="-2" attributes="0"/>
+              <Component id="bRent" min="-2" pref="426" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="0" attributes="0">
@@ -48,7 +48,7 @@
           <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jButton1" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
+                  <Component id="bRent" alignment="0" min="-2" pref="66" max="-2" attributes="0"/>
                   <Component id="cClientChoose" alignment="0" min="-2" pref="76" max="-2" attributes="0"/>
                   <Component id="bSet" min="-2" pref="75" max="-2" attributes="0"/>
                   <Component id="jLabel2" alignment="0" min="-2" pref="81" max="-2" attributes="0"/>
@@ -73,9 +73,6 @@
           <StringArray count="0"/>
         </Property>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cClientChooseActionPerformed"/>
-      </Events>
       <AuxValues>
         <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client&gt;"/>
       </AuxValues>
@@ -87,9 +84,6 @@
         </Property>
         <Property name="text" type="java.lang.String" value="Set"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSetActionPerformed"/>
-      </Events>
     </Component>
     <Container class="javax.swing.JPanel" name="jPanel1">
 
@@ -150,16 +144,13 @@
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="bRent">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="sansserif" size="36" style="0"/>
         </Property>
         <Property name="text" type="java.lang.String" value="RENT"/>
       </Properties>
-      <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-      </Events>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel2">
       <Properties>
@@ -182,8 +173,8 @@
                           <Component id="jScrollPane2" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jButton2" max="32767" attributes="0"/>
-                              <Component id="jButton3" pref="116" max="32767" attributes="0"/>
+                              <Component id="bSelect" max="32767" attributes="0"/>
+                              <Component id="bRemove" pref="116" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -200,9 +191,9 @@
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Component id="jScrollPane2" min="-2" pref="380" max="-2" attributes="0"/>
                       <Group type="102" attributes="0">
-                          <Component id="jButton2" min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="bSelect" min="-2" pref="51" max="-2" attributes="0"/>
                           <EmptySpace max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" pref="51" max="-2" attributes="0"/>
+                          <Component id="bRemove" min="-2" pref="51" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
@@ -240,27 +231,21 @@
             <Property name="text" type="java.lang.String" value="Equipment to choose:"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton2">
+        <Component class="javax.swing.JButton" name="bSelect">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="SELECT"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton2ActionPerformed"/>
-          </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="bRemove">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="18" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="REMOVE"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton3ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

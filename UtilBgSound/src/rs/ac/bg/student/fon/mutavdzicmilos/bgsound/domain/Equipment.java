@@ -7,8 +7,6 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *

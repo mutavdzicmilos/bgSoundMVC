@@ -5,11 +5,9 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Mode;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
 
 /**
  *
@@ -17,7 +15,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
  */
 public class FNewClient extends javax.swing.JFrame {
 
-    FSearchClient form;
+    //private FSearchClient form;
 
     /**
      * Creates new form FNewClient
@@ -27,22 +25,30 @@ public class FNewClient extends javax.swing.JFrame {
         setLocationRelativeTo(null);
         //popravi
         this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
-        fillForm(mode);
     }
+     public void addSaveClientListener(ActionListener mal) {
+        bSave.addActionListener(mal);
 
-    public FNewClient(Client client, Mode mode, FSearchClient form) {
-
-        this(mode);
-        this.form = form;
-        if (client != null) {
-            tID.setText(client.getClientID().toString());
-            tJMBG.setText(client.getJMBG());
-            tName.setText(client.getName());
-            tSurname.setText(client.getSurname());
-            tPhone.setText(client.getPhone());
-        }
     }
+      public void addDeleteClientListener(ActionListener mal) {
+        bDelete.addActionListener(mal);
 
+    }
+       public void addUpdateClientListener(ActionListener mal) {
+        bUpdate.addActionListener(mal);
+
+    }
+        public void addEnableChangesListener(ActionListener mal) {
+        bEnableChanges.addActionListener(mal);
+
+    } public void addResetListener(ActionListener mal) {
+        bReset.addActionListener(mal);
+
+    } public void addCancelListener(ActionListener mal) {
+        bCancel.addActionListener(mal);
+
+    }
+       
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -93,55 +99,20 @@ public class FNewClient extends javax.swing.JFrame {
         jLabel6.setText("JMBG:");
 
         bSave.setText("Save");
-        bSave.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSaveActionPerformed(evt);
-            }
-        });
 
         bCancel.setText("Cancel");
-        bCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelActionPerformed(evt);
-            }
-        });
 
         bDelete.setText("Delete");
-        bDelete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDeleteActionPerformed(evt);
-            }
-        });
 
         bEnableChanges.setText("Enable changes");
-        bEnableChanges.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bEnableChangesActionPerformed(evt);
-            }
-        });
 
         bUpdate.setText("Update");
-        bUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bUpdateActionPerformed(evt);
-            }
-        });
 
         bReset.setText("Reset values");
-        bReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bResetActionPerformed(evt);
-            }
-        });
 
         tName.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 
         tID.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        tID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tIDActionPerformed(evt);
-            }
-        });
 
         tSurname.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 
@@ -230,146 +201,7 @@ public class FNewClient extends javax.swing.JFrame {
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEnableChangesActionPerformed
-        // TODO add your handling code here:
-        fillForm(Mode.Mode_Update);
-    }//GEN-LAST:event_bEnableChangesActionPerformed
-
-    private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed
-
-        tName.setText("");
-        tSurname.setText("");
-        tJMBG.setText("");
-        tPhone.setText("");
-
-    }//GEN-LAST:event_bResetActionPerformed
-
-    private void tIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tIDActionPerformed
-
-    private void bSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveActionPerformed
-        String name = tName.getText().trim();
-        String jmbg = tJMBG.getText().trim();
-        String surname = tSurname.getText().trim();
-        String phone = tPhone.getText().trim();
-        //add some smarter validation
-        if (name.equals("") || jmbg.equals("") || surname.equals("") || phone.equals("")) {
-            JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        Client client = new Client(name, surname, jmbg, phone);
-        Client help = ThreadSaver.getInstance().getModel().saveClient(client);
-        if (help != null && help.getClientID() != null) {
-            JOptionPane.showMessageDialog(null, "Client saved sucessfully!");
-            tID.setText(help.getClientID().toString());
-        } else {
-            JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-        }
-
-    }//GEN-LAST:event_bSaveActionPerformed
-
-    private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        dispose();    }//GEN-LAST:event_bCancelActionPerformed
-
-    private void bUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateActionPerformed
-        int id = Integer.parseInt(tID.getText().trim());
-        String name = tName.getText().trim();
-        String jmbg = tJMBG.getText().trim();
-        String surname = tSurname.getText().trim();
-        String phone = tPhone.getText().trim();
-        //add some smarter validation
-        if (name.equals("") || jmbg.equals("") || surname.equals("") || phone.equals("")) {
-            JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        Client client = new Client(name, surname, jmbg, id, phone);
-        boolean b = ThreadSaver.getInstance().getModel().updateClient(client);
-        if (b) {
-            form.fillform();
-            JOptionPane.showMessageDialog(null, "Client saved sucessfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-        }
-        dispose();
-
-
-    }//GEN-LAST:event_bUpdateActionPerformed
-
-    private void bDeleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteActionPerformed
-        int id = Integer.parseInt(tID.getText().trim());
-
-        boolean b = ThreadSaver.getInstance().getModel().deleteClient(new Client(id));
-        if (b) {
-            form.fillform();
-            JOptionPane.showMessageDialog(null, "Client deleted sucessfully", "Success", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "Error delating client.Check if client is discharged.", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-
-        }
-        dispose();
-    }//GEN-LAST:event_bDeleteActionPerformed
-    public void fillForm(Mode mode) {
-        if (mode == Mode.Mode_Add) {
-            tID.setEditable(false);
-            jNew.setVisible(true);
-            bCancel.setVisible(true);
-            tJMBG.setEditable(true);
-            bReset.setVisible(true);
-            tPhone.setEditable(true);
-            bSave.setVisible(true);
-            tSurname.setEditable(true);
-            bDelete.setVisible(false);
-
-            bEnableChanges.setVisible(false);
-
-            bUpdate.setVisible(false);
-            return;
-        }
-        if (mode == Mode.Mode_Update) {
-            tID.setEditable(false);
-            tJMBG.setEditable(true);
-            tName.setEditable(true);
-            tPhone.setEditable(true);
-            tSurname.setEditable(true);
-
-            jNew.setVisible(false);
-            bCancel.setVisible(true);
-
-            bReset.setVisible(false);
-
-            bSave.setVisible(false);
-
-            bDelete.setVisible(true);
-
-            bEnableChanges.setVisible(false);
-
-            bUpdate.setVisible(true);
-            return;
-        }
-        if (mode == Mode.Mode_View) {
-            tID.setEditable(false);
-            tJMBG.setEditable(false);
-            tName.setEditable(false);
-            tPhone.setEditable(false);
-            tSurname.setEditable(false);
-
-            jNew.setVisible(false);
-            bCancel.setVisible(true);
-
-            bReset.setVisible(false);
-
-            bSave.setVisible(false);
-
-            bDelete.setVisible(false);
-
-            bEnableChanges.setVisible(true);
-
-            bUpdate.setVisible(false);
-        }
-
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bCancel;
@@ -390,4 +222,94 @@ public class FNewClient extends javax.swing.JFrame {
     private javax.swing.JTextField tPhone;
     private javax.swing.JTextField tSurname;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTextField gettID() {
+        return tID;
+    }
+
+    public void settID(javax.swing.JTextField tID) {
+        this.tID = tID;
+    }
+
+    public javax.swing.JTextField gettJMBG() {
+        return tJMBG;
+    }
+
+    public void settJMBG(javax.swing.JTextField tJMBG) {
+        this.tJMBG = tJMBG;
+    }
+
+    public javax.swing.JTextField gettName() {
+        return tName;
+    }
+
+    public void settName(javax.swing.JTextField tName) {
+        this.tName = tName;
+    }
+
+    public javax.swing.JTextField gettPhone() {
+        return tPhone;
+    }
+
+    public void settPhone(javax.swing.JTextField tPhone) {
+        this.tPhone = tPhone;
+    }
+
+    public javax.swing.JTextField gettSurname() {
+        return tSurname;
+    }
+
+    public void settSurname(javax.swing.JTextField tSurname) {
+        this.tSurname = tSurname;
+    }
+
+   
+
+    public javax.swing.JButton getbCancel() {
+        return bCancel;
+    }
+
+    public javax.swing.JButton getbDelete() {
+        return bDelete;
+    }
+
+    public javax.swing.JButton getbEnableChanges() {
+        return bEnableChanges;
+    }
+
+    public javax.swing.JButton getbReset() {
+        return bReset;
+    }
+
+    public javax.swing.JButton getbSave() {
+        return bSave;
+    }
+
+    public javax.swing.JButton getbUpdate() {
+        return bUpdate;
+    }
+
+    public javax.swing.JLabel getjLabel2() {
+        return jLabel2;
+    }
+
+    public javax.swing.JLabel getjLabel3() {
+        return jLabel3;
+    }
+
+    public javax.swing.JLabel getjLabel4() {
+        return jLabel4;
+    }
+
+    public javax.swing.JLabel getjLabel5() {
+        return jLabel5;
+    }
+
+    public javax.swing.JLabel getjLabel6() {
+        return jLabel6;
+    }
+
+    public javax.swing.JLabel getjNew() {
+        return jNew;
+    }
 }

@@ -39,6 +39,7 @@ public class StorageWorkerImpl implements StorageWorker {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
+            
         }
 
         return worker;

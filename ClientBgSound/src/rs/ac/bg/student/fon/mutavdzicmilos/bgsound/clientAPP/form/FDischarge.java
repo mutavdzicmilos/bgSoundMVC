@@ -5,15 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.RentTableModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -26,7 +18,6 @@ public class FDischarge extends javax.swing.JFrame {
      */
     public FDischarge() {
         initComponents();
-        fillForm();
     }
 
     /**
@@ -86,20 +77,10 @@ public class FDischarge extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tDischarge.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tDischargeMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(tDischarge);
 
         bDeselect.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         bDeselect.setText("Deselect");
-        bDeselect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDeselectActionPerformed(evt);
-            }
-        });
 
         jLabel2.setFont(new java.awt.Font("sansserif", 0, 36)); // NOI18N
         jLabel2.setText("Rents:");
@@ -139,11 +120,6 @@ public class FDischarge extends javax.swing.JFrame {
 
         bDischarge.setFont(new java.awt.Font("sansserif", 1, 36)); // NOI18N
         bDischarge.setText("Discharge");
-        bDischarge.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDischargeActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -177,21 +153,11 @@ public class FDischarge extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tRents.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                tRentsMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(tRents);
 
         pRent.setBorder(javax.swing.BorderFactory.createTitledBorder("Rent"));
 
         bSelect.setText("Select");
-        bSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelectActionPerformed(evt);
-            }
-        });
 
         jLabel4.setText("Rent ID:");
 
@@ -360,87 +326,31 @@ public class FDischarge extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+/**/
+    public void addSelectListener(ActionListener mal) {
+        bSelect.addActionListener(mal);
+    }
 
-    private void bSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectActionPerformed
-        // TODO add your handling code here:
-        RentTableModel rt = (RentTableModel) tRents.getModel();
+    public void addDeselectListener(ActionListener mal) {
+        bDeselect.addActionListener(mal);
+    }
 
-        RentTableModel dt = (RentTableModel) tDischarge.getModel();
-        dt.addRent(rt.getRent(tRents.getSelectedRow()));
-        rt.removeRent(tRents.getSelectedRow());
-        pRent.setVisible(false);
-        setTable();
-    }//GEN-LAST:event_bSelectActionPerformed
+    public void addDischargeListener(ActionListener mal) {
+        bDischarge.addActionListener(mal);
+    }
 
-    private void tRentsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tRentsMouseClicked
-        // TODO add your handling code here:
-        int br = tRents.getSelectedRow();
-        if (br == -1) {
-            pRent.setVisible(false);
-            return;
-        }
-        int tm = (int) tRents.getModel().getValueAt(br, 0);
+    public void addRentsMouseClicked(java.awt.event.MouseListener mal) {
+        tRents.addMouseListener(mal);
+    }
 
-        Rent help = ThreadSaver.getInstance().getModel().getRentByID(tm);
-        if (help != null && help.getCopy() != null && help.getCopy() != null && help.getCopy().getEquipment() != null) {
-            tRentID.setText(String.valueOf(help.getRentID()));
-            tCoID.setText(String.valueOf(help.getCopy().getCopyID()));
-            tEID.setText(String.valueOf(help.getCopy().getEquipment().getEquipmentID()));
-            tCID.setText(String.valueOf(help.getClient().getClientID()));
-            tCName.setText(help.getClient().getName());
-            tSurname.setText(help.getClient().getSurname());
-            tDateRented.setText(String.valueOf(help.getDateFrom()));
-            tEName.setText(help.getCopy().getEquipment().getName());
-            pRent.setVisible(true);
-        }
-        setTable();
-    }//GEN-LAST:event_tRentsMouseClicked
-
-    private void bDeselectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeselectActionPerformed
-        // TODO add your handling code here:
-        RentTableModel rt = (RentTableModel) tRents.getModel();
-
-        RentTableModel dt = (RentTableModel) tDischarge.getModel();
-        rt.addRent(dt.getRent(tDischarge.getSelectedRow()));
-        dt.removeRent(tDischarge.getSelectedRow());
-        bDeselect.setEnabled(false);
-        setTable();
-    }//GEN-LAST:event_bDeselectActionPerformed
-
-    private void tDischargeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tDischargeMouseClicked
-        // TODO add your handling code here:
-        int br = tDischarge.getSelectedRow();
-        if (br == -1) {
-            bDeselect.setEnabled(false);
-            return;
-        }
-        bDeselect.setEnabled(true);
-        setTable();
-    }//GEN-LAST:event_tDischargeMouseClicked
-
-    private void bDischargeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDischargeActionPerformed
-        // TODO add your handling code here:
-        int dialog = JOptionPane.YES_NO_OPTION;
-        JOptionPane.showConfirmDialog(null, "Do you want do discharge selected rents", "Confirmation", dialog);
-        if (dialog == JOptionPane.YES_OPTION) {
-            RentTableModel rt = (RentTableModel) tDischarge.getModel();
-            List<Rent> rents = rt.getAll();
-            if (rents == null || rents.size() == 0) {
-                JOptionPane.showMessageDialog(null, "Please,select the rents.");
-                return;
-            }
-            boolean help = ThreadSaver.getInstance().getModel().dischargeAll(rents);
-            if (help) {
-                JOptionPane.showMessageDialog(null, "Successfully discharged");
-                fillForm();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error discharging");
-                fillForm();
-            }
-        }
-
-    }//GEN-LAST:event_bDischargeActionPerformed
-
+    public void addDischargeMouseClicked(java.awt.event.MouseListener mal) {
+        tDischarge.addMouseListener(mal);
+    }
+     
+    /**/
+ /**/
+ /*    */
+ /**/
     /**
      * @param args the command line arguments
      */
@@ -478,43 +388,54 @@ public class FDischarge extends javax.swing.JFrame {
     private javax.swing.JTextField tSurname;
     // End of variables declaration//GEN-END:variables
 
-    private void fillForm() {
-        try {
+   
 
-            tDischarge.setModel(new RentTableModel(new ArrayList<>()));
-            tDischarge.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tRents.setModel(new RentTableModel(ThreadSaver.getInstance().getModel().getAllRents()));
-            tRents.getColumnModel().getSelectionModel().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tDischarge.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            tRents.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-            setTable();
-            pRent.setVisible(false);
-            bDeselect.setEnabled(false);
-            tCID.setEditable(false);
-            tCName.setEditable(false);
-            tCoID.setEditable(false);
-            tDateRented.setEditable(false);
-            tEID.setEditable(false);
-            tEName.setEditable(false);
-            tRentID.setEditable(false);
-            tSurname.setEditable(false);
-        } catch (Exception ex) {
-            Logger.getLogger(FDischarge.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public javax.swing.JTextField gettCID() {
+        return tCID;
+    }
+    public javax.swing.JTextField gettCName() {
+        return tCName;
+    }
+    public javax.swing.JTextField gettCoID() {
+        return tCoID;
     }
 
-    private void setTable() {
-        tDischarge.getColumnModel().getColumn(0).setMinWidth(30);
-        tDischarge.getColumnModel().getColumn(0).setMaxWidth(30);
-        tDischarge.getColumnModel().getColumn(3).setMinWidth(60);
-        tDischarge.getColumnModel().getColumn(3).setMaxWidth(60);
-        tDischarge.getColumnModel().getColumn(4).setMinWidth(60);
-        tDischarge.getColumnModel().getColumn(4).setMaxWidth(60);
-        tRents.getColumnModel().getColumn(0).setMinWidth(30);
-        tRents.getColumnModel().getColumn(0).setMaxWidth(30);
-        tRents.getColumnModel().getColumn(3).setMinWidth(60);
-        tRents.getColumnModel().getColumn(3).setMaxWidth(60);
-        tRents.getColumnModel().getColumn(4).setMinWidth(60);
-        tRents.getColumnModel().getColumn(4).setMaxWidth(60);
+
+    public javax.swing.JTextField gettDateRented() {
+        return tDateRented;
     }
+
+    public javax.swing.JTable gettDischarge() {
+        return tDischarge;
+    }
+    public javax.swing.JTextField gettEID() {
+        return tEID;
+    }
+
+
+    public javax.swing.JTextField gettEName() {
+        return tEName;
+    }
+
+    public javax.swing.JTextField gettRentID() {
+        return tRentID;
+    }
+
+    public javax.swing.JTable gettRents() {
+        return tRents;
+    }
+    public javax.swing.JTextField gettSurname() {
+        return tSurname;
+    }
+    public javax.swing.JButton getbDeselect() {
+        return bDeselect;
+    }
+    public javax.swing.JButton getbDischarge() {
+        return bDischarge;
+    }
+
+    public javax.swing.JPanel getpRent() {
+        return pRent;
+    }
+
 }

@@ -71,15 +71,6 @@ public class ServiceCopyImpl implements ServiceCopy {
     }
 
     @Override
-    public List<Copy> getCopy(int id) throws Exception {
-        try {
-            return storageCopy.getCopy(id);
-        } catch (Exception e) {
-            return null;
-        }
-    }
-
-    @Override
     public List<Copy> getAllEquipment(int id) throws Exception {
         try {
             return storageCopy.getAllEquipment(id);

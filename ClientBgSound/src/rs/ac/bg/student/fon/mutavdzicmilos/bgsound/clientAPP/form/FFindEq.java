@@ -5,32 +5,24 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.EquipmentTableModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
-
 /**
  *
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class FFindEq extends javax.swing.JFrame {
+
     /**
      * Creates new form FFindEq
      */
-    FEquipment form;
-    public FFindEq(FEquipment form) {
-        this.form=form;
+
+    public FFindEq() {
         initComponents();
-         setLocationRelativeTo(null);
+        setLocationRelativeTo(null);
         //popravi
-        this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
-        tEq.setModel(new EquipmentTableModel(ThreadSaver.getInstance().getModel().getAllEquipment()));
-        tEq.getColumnModel().getColumn(0).setMinWidth(30);
-        tEq.getColumnModel().getColumn(0).setMaxWidth(30);
-        tEq.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+    }
+
+    public void addSelectActionListener(java.awt.event.ActionListener e) {
+        bSelect.addActionListener(e);
     }
 
     /**
@@ -81,11 +73,6 @@ public class FFindEq extends javax.swing.JFrame {
         );
 
         bSelect.setText("Select");
-        bSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelectActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -113,21 +100,6 @@ public class FFindEq extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectActionPerformed
-        // TODO add your handling code here:
-        int e= tEq.getSelectedRow();
-        EquipmentTableModel model= (EquipmentTableModel)tEq.getModel();
-        if(e==-1){
-            JOptionPane.showMessageDialog(null, "Please select the equipment","Error",JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        Equipment eq=model.getEquipment(e);
-        eq.setCopies(ThreadSaver.getInstance().getModel().getCopies(eq.getEquipmentID()));
-        form.set(eq);
-        dispose();
-        
-    }//GEN-LAST:event_bSelectActionPerformed
-
     /**
      * @param args the command line arguments
      */
@@ -138,4 +110,24 @@ public class FFindEq extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tEq;
     // End of variables declaration//GEN-END:variables
+
+    public javax.swing.JTable gettEq() {
+        return tEq;
+    }
+    
+    public void settEq(javax.swing.JTable tEq) {
+        this.tEq = tEq;
+    }
+    
+    public javax.swing.JButton getbSelect() {
+        return bSelect;
+    }
+    
+    public javax.swing.JPanel getjPanel1() {
+        return jPanel1;
+    }
+    
+    public javax.swing.JScrollPane getjScrollPane1() {
+        return jScrollPane1;
+    }
 }

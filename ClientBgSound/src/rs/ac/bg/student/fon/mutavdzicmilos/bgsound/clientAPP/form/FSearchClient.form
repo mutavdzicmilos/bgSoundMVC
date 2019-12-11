@@ -128,14 +128,8 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchByIDActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tID">
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tIDFocusGained"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bSearchByName">
           <Properties>
@@ -144,14 +138,8 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Search"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchByNameActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="tName">
-          <Events>
-            <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="tNameFocusGained"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel3">
           <Properties>
@@ -175,7 +163,7 @@
               </Group>
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace max="32767" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="373" max="-2" attributes="0"/>
+                  <Component id="bView" min="-2" pref="373" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="134" max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -186,7 +174,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jScrollPane1" pref="215" max="32767" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                  <Component id="jButton1" min="-2" pref="69" max="-2" attributes="0"/>
+                  <Component id="bView" min="-2" pref="69" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -218,16 +206,13 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="bView">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="sansserif" size="36" style="1"/>
             </Property>
             <Property name="text" type="java.lang.String" value="VIEW"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

@@ -6,7 +6,7 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication;
 
 import java.io.Serializable;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Worker;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Action;
 
 /**
  *
@@ -32,6 +32,7 @@ public class ServerReceiveObject implements Serializable {
     public void setOperation(int operation) {
         this.operation = operation;
     }
+
     public Object getObject() {
         return object;
     }

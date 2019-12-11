@@ -18,7 +18,6 @@ public interface ServiceCopy {
     public Copy getCopy(Copy copy)throws Exception;
     public boolean setCopy(List<Copy> copies)throws Exception;
     public boolean changeCopy(Copy copy)throws Exception;
-    public List<Copy> getCopy(int id)throws Exception;
      public List<Copy> getAllEquipment(int id) throws Exception;
      public boolean deleteCopy(int coId,int eqId)throws Exception;
 }

@@ -5,11 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.ClientTableModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
+import javax.swing.JTable;
 
 /**
  *
@@ -17,19 +13,16 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
  */
 public class FFindClient extends javax.swing.JFrame {
 
-    private FRent form;
-
     /**
      * Creates new form FFindClient
      */
-    public FFindClient(List<Client> clients, FRent forma) {
+    public FFindClient() {
         initComponents();
         setLocationRelativeTo(null);
-        tClients.setModel(new ClientTableModel(clients));
-        tClients.getColumnModel().getColumn(0).setMinWidth(30);
-          tClients.getColumnModel().getColumn(0).setMaxWidth(30);
-           tClients.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        form = forma;
+    }
+
+    public void addSelectListener(java.awt.event.ActionListener e) {
+        bSelect.addActionListener(e);
     }
 
     /**
@@ -49,11 +42,6 @@ public class FFindClient extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         bSelect.setText("Select");
-        bSelect.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSelectActionPerformed(evt);
-            }
-        });
 
         tClients.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -110,16 +98,9 @@ public class FFindClient extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void bSelectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSelectActionPerformed
-        // TODO add your handling code here:
-        if (tClients.getSelectedRow() == -1) {
-            JOptionPane.showMessageDialog(null, "Please select the client");
-            return;
-        }
-        form.setIndex(tClients.getSelectedRow());
-        dispose();
-    }//GEN-LAST:event_bSelectActionPerformed
-
+    public JTable gettClients() {
+        return tClients;
+    }
     /**
      * @param args the command line arguments
      */

@@ -96,9 +96,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="New Client"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bNewClient1ActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bSearchClient">
           <Properties>
@@ -107,9 +104,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Search Client"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchClientActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -155,9 +149,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="Search Equipment"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bSearchEquipmentActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bNewEquipment">
           <Properties>
@@ -166,9 +157,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="New Equipment"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bNewEquipmentActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -213,9 +201,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="RENT"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRentActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="bDischarge">
           <Properties>
@@ -224,9 +209,6 @@
             </Property>
             <Property name="text" type="java.lang.String" value="DISCHARGE"/>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bDischargeActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

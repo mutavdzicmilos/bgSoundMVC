@@ -5,13 +5,10 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
+import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Mode;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
+import javax.swing.JButton;
 
 /**
  *
@@ -22,15 +19,13 @@ public class FEquipment extends javax.swing.JFrame {
     /**
      * Creates new form FEquipment
      */
-    public FEquipment(Mode mode) {
+    public FEquipment() {
         initComponents();
         buttonGroup1.add(rATrue);
         buttonGroup1.add(rAFalse);
         buttonGroup2.add(rWTrue);
         buttonGroup2.add(rWFalse);
-        fillForm(mode);
         setLocationRelativeTo(null);
-        //popravi
         this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
     }
 
@@ -74,7 +69,6 @@ public class FEquipment extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
         tDefect = new javax.swing.JTextArea();
-        bSaveCopy = new javax.swing.JButton();
         bDeleteCopy = new javax.swing.JButton();
         bEnableChanges = new javax.swing.JButton();
         bUpdateCopy = new javax.swing.JButton();
@@ -94,11 +88,6 @@ public class FEquipment extends javax.swing.JFrame {
         jLabel3.setText("ID:");
 
         tID.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        tID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tIDActionPerformed(evt);
-            }
-        });
 
         tName.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
 
@@ -126,32 +115,12 @@ public class FEquipment extends javax.swing.JFrame {
 
         bFind.setFont(new java.awt.Font("sansserif", 1, 14)); // NOI18N
         bFind.setText("Find");
-        bFind.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bFindActionPerformed(evt);
-            }
-        });
 
         bReset.setText("Reset values");
-        bReset.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bResetActionPerformed(evt);
-            }
-        });
 
         bCancel.setText("Cancel");
-        bCancel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bCancelActionPerformed(evt);
-            }
-        });
 
         bSaveEq.setText("Save Equipment");
-        bSaveEq.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bSaveEqActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -235,11 +204,6 @@ public class FEquipment extends javax.swing.JFrame {
 
         cCopyChooser.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
         cCopyChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cCopyChooser.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cCopyChooserActionPerformed(evt);
-            }
-        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Available", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 14))); // NOI18N
 
@@ -280,20 +244,10 @@ public class FEquipment extends javax.swing.JFrame {
 
         rWFalse.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         rWFalse.setText("false");
-        rWFalse.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rWFalseActionPerformed(evt);
-            }
-        });
 
         rWTrue.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         rWTrue.setSelected(true);
         rWTrue.setText("true");
-        rWTrue.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rWTrueActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -320,11 +274,6 @@ public class FEquipment extends javax.swing.JFrame {
         tDefect.setColumns(20);
         tDefect.setFont(new java.awt.Font("sansserif", 0, 18)); // NOI18N
         tDefect.setRows(5);
-        tDefect.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                tDefectFocusGained(evt);
-            }
-        });
         jScrollPane2.setViewportView(tDefect);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
@@ -342,28 +291,11 @@ public class FEquipment extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        bSaveCopy.setText("Save Copy");
-
         bDeleteCopy.setText("Delete Copy");
-        bDeleteCopy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bDeleteCopyActionPerformed(evt);
-            }
-        });
 
         bEnableChanges.setText("Enable changes");
-        bEnableChanges.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bEnableChangesActionPerformed(evt);
-            }
-        });
 
         bUpdateCopy.setText("Update Copy");
-        bUpdateCopy.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                bUpdateCopyActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jCopyPanelLayout = new javax.swing.GroupLayout(jCopyPanel);
         jCopyPanel.setLayout(jCopyPanelLayout);
@@ -388,9 +320,7 @@ public class FEquipment extends javax.swing.JFrame {
                 .addContainerGap(110, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jCopyPanelLayout.createSequentialGroup()
                 .addContainerGap(36, Short.MAX_VALUE)
-                .addGroup(jCopyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(bUpdateCopy, javax.swing.GroupLayout.DEFAULT_SIZE, 140, Short.MAX_VALUE)
-                    .addComponent(bSaveCopy, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(bUpdateCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jCopyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(bEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -411,9 +341,7 @@ public class FEquipment extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jCopyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(bSaveCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(bEnableChanges, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jCopyPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bUpdateCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -444,120 +372,90 @@ public class FEquipment extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tIDActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tIDActionPerformed
+    public ButtonGroup getButtonGroup1() {
+        return buttonGroup1;
+    }
 
-    private void bResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bResetActionPerformed
-        tName.setText("");
-        tSpecification.setText("");
-        tConnection.setText("");
-        tNumber.setValue(0);
-    }//GEN-LAST:event_bResetActionPerformed
+    public ButtonGroup getButtonGroup2() {
+        return buttonGroup2;
+    }
 
-    private void rWTrueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rWTrueActionPerformed
-        // TODO add your handling code here:
-        tDefect.setText("");
-        tDefect.setEditable(false);
-    }//GEN-LAST:event_rWTrueActionPerformed
+    public void addtDefectFocusGained(java.awt.event.FocusListener e) {
+        tDefect.addFocusListener(e);
+    }
+
+    public void addRWtrueActionListener(java.awt.event.ActionListener e) {
+        rWTrue.addActionListener(e);
+    }
+
+    public void addFindActionListener(java.awt.event.ActionListener e) {
+        bFind.addActionListener(e);
+    }
 
     private void rATrueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rATrueActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rATrueActionPerformed
 
-    private void bCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bCancelActionPerformed
-        // TODO add your handling code here:
-        dispose();
-    }//GEN-LAST:event_bCancelActionPerformed
+    public JButton getbCancel() {
+        return bCancel;
+    }
 
-    private void bUpdateCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bUpdateCopyActionPerformed
-        // TODO add your handling code here:
-        if (cCopyChooser.getItemCount() == 0) {
-            return;
-        }
-        int eID = Integer.parseInt(tID.getText());
-        int cID = Integer.parseInt(cCopyChooser.getSelectedItem().toString());
+    public JButton getbDeleteCopy() {
+        return bDeleteCopy;
+    }
 
-        Copy c = new Copy(cID, rWTrue.isSelected(), rATrue.isSelected(), new Equipment(eID), tDefect.getText().trim());
-        boolean help = ThreadSaver.getInstance().getModel().updateCopy(c);
-        if (help) {
-            JOptionPane.showMessageDialog(null, "Success");
-            cCopyChooser.removeItemAt(cCopyChooser.getSelectedIndex());
-            if (cCopyChooser.getItemCount() == 0) {
-                jCopyPanel.setVisible(false);
-            }
-            return;
-        } else {
-            JOptionPane.showMessageDialog(null, "Error update!Check equipment!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+    public JButton getbEnableChanges() {
+        return bEnableChanges;
+    }
 
-    }//GEN-LAST:event_bUpdateCopyActionPerformed
+    public JButton getbFind() {
+        return bFind;
+    }
 
-    private void bDeleteCopyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDeleteCopyActionPerformed
-        if (cCopyChooser.getItemCount() == 0) {
-            return;
-        }
-        int eID = Integer.parseInt(tID.getText());
-        int cID = Integer.parseInt(cCopyChooser.getSelectedItem().toString());
-        Copy c = new Copy(cID, eID);
-        boolean help = ThreadSaver.getInstance().getModel().deleteCopy(c);
-        if (help) {
-            JOptionPane.showMessageDialog(null, "Success");
-            cCopyChooser.removeItemAt(cCopyChooser.getSelectedIndex());
-            if (cCopyChooser.getItemCount() == 0) {
-                jCopyPanel.setVisible(false);
-            }
-            return;
-        } else {
-            JOptionPane.showMessageDialog(null, "Error delete!Check if equipment is rented!", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-    }//GEN-LAST:event_bDeleteCopyActionPerformed
+    public JButton getbReset() {
+        return bReset;
+    }
 
-    private void tDefectFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tDefectFocusGained
-        // TODO add your handling code here:
-        rWFalse.setSelected(true);
-        rWTrue.setSelected(false);
-    }//GEN-LAST:event_tDefectFocusGained
+    public JButton getbSaveEq() {
+        return bSaveEq;
+    }
 
-    private void bSaveEqActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bSaveEqActionPerformed
-        // TODO add your handling code here:
-        String name = tName.getText().trim();
-        String specification = tSpecification.getText().trim();
-        String connection = tConnection.getText().trim();
-        if (name.equals("") || specification.equals("") || connection.equals("")) {
-            JOptionPane.showMessageDialog(null, "Error input.Check values.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-        Equipment e = ThreadSaver.getInstance().getModel().saveEquipment(new Equipment(connection, specification, name, null));
-        if (e != null) {
-            JOptionPane.showMessageDialog(null, "Saved sucessfully");
-            tID.setText(e.getEquipmentID().toString());
-        }
+    public JButton getbUpdateCopy() {
+        return bUpdateCopy;
+    }
 
+    public void addUpdateCopyListener(ActionListener mal) {
+        bUpdateCopy.addActionListener(mal);
+    }
 
-    }//GEN-LAST:event_bSaveEqActionPerformed
+    public void addDeleteCopyListener(ActionListener mal) {
+        bDeleteCopy.addActionListener(mal);
+    }
 
-    private void bEnableChangesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bEnableChangesActionPerformed
-        fillForm(Mode.Mode_Update);
-    }//GEN-LAST:event_bEnableChangesActionPerformed
+    public void addSaveEqListener(ActionListener mal) {
+        bSaveEq.addActionListener(mal);
+    }
 
-    private void rWFalseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rWFalseActionPerformed
-        // TODO add your handling code here:
-        tDefect.setEditable(true);
-    }//GEN-LAST:event_rWFalseActionPerformed
+    public void addRWFalseListener(ActionListener mal) {
+        rWFalse.addActionListener(mal);
+    }
 
-    private void bFindActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bFindActionPerformed
-        // TODO add your handling code here:
-        JFrame frame = new FFindEq(this);
-        frame.setVisible(true);
-    }//GEN-LAST:event_bFindActionPerformed
+    public void addCancelListener(ActionListener mal) {
+        bCancel.addActionListener(mal);
+    }
 
-    private void cCopyChooserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cCopyChooserActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cCopyChooserActionPerformed
+    public void addResetEqListener(ActionListener mal) {
+        bReset.addActionListener(mal);
+    }
 
+    public void addEnableChangesListener(ActionListener mal) {
+        bEnableChanges.addActionListener(mal);
+    }
+
+    public void addDeleteListener(ActionListener mal) {
+        bDeleteCopy.addActionListener(mal);
+    }
+    /**/
     /**
      * @param args the command line arguments
      */
@@ -567,7 +465,6 @@ public class FEquipment extends javax.swing.JFrame {
     private javax.swing.JButton bEnableChanges;
     private javax.swing.JButton bFind;
     private javax.swing.JButton bReset;
-    private javax.swing.JButton bSaveCopy;
     private javax.swing.JButton bSaveEq;
     private javax.swing.JButton bUpdateCopy;
     private javax.swing.ButtonGroup buttonGroup1;
@@ -599,97 +496,55 @@ public class FEquipment extends javax.swing.JFrame {
     private javax.swing.JTextArea tSpecification;
     // End of variables declaration//GEN-END:variables
 
-    private void fillForm(Mode mode) {
-        if (mode == Mode.Mode_Add) {
-            tConnection.setEditable(true);
-            tDefect.setEditable(true);
-            bFind.setVisible(false);
-            tName.setEditable(true);
-            tID.setEditable(false);
-            bSaveEq.setVisible(true);
-            bCancel.setVisible(true);
-            bReset.setVisible(true);
-            jCopyPanel.setVisible(false);
-            bEnableChanges.setVisible(false);
-            return;
-        }
-        if (mode == Mode.Mode_View) {
-            tConnection.setEditable(false);
-            tDefect.setEditable(false);
-            bFind.setVisible(true);
-            tName.setEditable(false);
-            tID.setEditable(false);
-            bSaveEq.setVisible(false);
-            bCancel.setVisible(true);
-            tSpecification.setEditable(false);
-            bReset.setVisible(false);
-            jCopyPanel.setVisible(false);
-            tNumber.setEnabled(false);
-            bEnableChanges.setVisible(false);
-            rATrue.setEnabled(false);
-            rAFalse.setEnabled(false);
-            rWTrue.setEnabled(false);
-            rWFalse.setEnabled(false);
-            return;
-        }
-        if (mode == Mode.Mode_Update) {
-            tConnection.setEditable(false);
-            tDefect.setEditable(true);
-            tDefect.setEnabled(true);
-            bFind.setVisible(true);
-            tName.setEditable(false);
-            tSpecification.setEditable(false);
-            tID.setEditable(false);
-            bSaveEq.setVisible(false);
-            bCancel.setVisible(true);
-            bReset.setVisible(false);
-            jCopyPanel.setVisible(true);
-            tNumber.setEnabled(false);
-            bUpdateCopy.setVisible(true);
-            bDeleteCopy.setVisible(true);
-            bEnableChanges.setVisible(false);
-            rATrue.setEnabled(true);
-            rAFalse.setEnabled(true);
-            rWTrue.setEnabled(true);
-            rWFalse.setEnabled(true);
-            tDefect.setEditable(true);
-            return;
-        }
+    public javax.swing.JComboBox<String> getcCopyChooser() {
+        return cCopyChooser;
     }
 
-    public void set(Equipment e) {
-        if (e == null) {
-            return;
-        }
-        cCopyChooser.removeAllItems();
-        tID.setText(e.getEquipmentID().toString());
-        tID.setEditable(false);
-        tName.setText(e.getName());
-        tName.setEditable(false);
-        tConnection.setText(e.getConnection());
-        tConnection.setEditable(false);
-        tSpecification.setText(e.getSpecification());
-        tSpecification.setEditable(false);
-        jLabel6.setVisible(false);
-        tNumber.setVisible(false);
-        if (e.getCopies() == null || e.getCopies().size() == 0) {
-            jCopyPanel.setVisible(false);
-            return;
-        } else {
-            jCopyPanel.setVisible(true);
-            bEnableChanges.setVisible(true);
-            bDeleteCopy.setVisible(false);
-            bSaveCopy.setVisible(false);
-            bUpdateCopy.setVisible(false);
-            for (Copy c : e.getCopies()) {
-                cCopyChooser.addItem(c.getCopyID().toString());
-
-            }
-        }
-        rATrue.setSelected(e.getCopies().get(0).getAvailable());
-        rWTrue.setSelected(e.getCopies().get(0).getWorking());
-        tDefect.setText(e.getCopies().get(0).getDefect());
-        tDefect.setEnabled(false);
+    public javax.swing.JPanel getjCopyPanel() {
+        return jCopyPanel;
     }
 
+    public javax.swing.JRadioButton getrAFalse() {
+        return rAFalse;
+    }
+
+    public javax.swing.JRadioButton getrATrue() {
+        return rATrue;
+    }
+
+    public javax.swing.JRadioButton getrWFalse() {
+        return rWFalse;
+    }
+
+    public javax.swing.JRadioButton getrWTrue() {
+        return rWTrue;
+    }
+
+    public javax.swing.JTextField gettConnection() {
+        return tConnection;
+    }
+
+    public javax.swing.JTextArea gettDefect() {
+        return tDefect;
+    }
+
+    public javax.swing.JTextField gettID() {
+        return tID;
+    }
+
+    public javax.swing.JTextField gettName() {
+        return tName;
+    }
+
+    public javax.swing.JSpinner gettNumber() {
+        return tNumber;
+    }
+
+    public javax.swing.JTextArea gettSpecification() {
+        return tSpecification;
+    }
+
+    public javax.swing.JLabel getjLabel6() {
+        return jLabel6;
+    }
 }

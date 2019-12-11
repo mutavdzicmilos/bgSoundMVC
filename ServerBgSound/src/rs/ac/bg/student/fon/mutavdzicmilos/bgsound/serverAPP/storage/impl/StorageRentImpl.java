@@ -86,7 +86,6 @@ public class StorageRentImpl implements StorageRent {
 
             }
             connection.commit();
-            System.out.println("here");
         } catch (Exception e) {
             e.printStackTrace();
             return false;

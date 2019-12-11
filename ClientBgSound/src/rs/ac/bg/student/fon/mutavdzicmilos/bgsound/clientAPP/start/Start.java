@@ -5,15 +5,15 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.start;
 
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.FConnect;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.controller.ControllerConnect;
 
 /**
  *
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class Start {
+
     public static void main(String[] args) {
-        FConnect fConnect= new FConnect();
-        fConnect.setVisible(true);
+        new ControllerConnect();
     }
 }

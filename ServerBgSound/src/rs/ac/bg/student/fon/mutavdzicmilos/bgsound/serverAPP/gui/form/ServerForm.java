@@ -181,16 +181,10 @@ public class ServerForm extends javax.swing.JFrame {
 
         if (serverThread == null || !serverThread.isAlive()) {
 
-            try {
-                int port = Integer.parseInt(ServerController.getInstance().getHashmap().get("port").toString());
-
-                System.out.println(port);
-                ServerSocket serverSocket = new ServerSocket(port);
-                serverThread = new ServerThread(serverSocket, this);
-                serverThread.start();
-
-            } catch (IOException ex) {
-            }
+            int port = Integer.parseInt(ServerController.getInstance().getHashmap().get("port").toString());
+            System.out.println(port);
+            serverThread = new ServerThread(port, this);
+            serverThread.start();
         } else {
             System.out.println("Server is up already");
             return;
@@ -202,6 +196,8 @@ public class ServerForm extends javax.swing.JFrame {
     private void bDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDisconnectActionPerformed
         fillForm();
         tWorkers.setModel(new WorkerTableModel());
+       // serverThread.closeAll();
+        serverThread.interrupt();
         serverThread = null;
 
 

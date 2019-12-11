@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package rs.ac.bg.student.fon.mutavdzicmilos.clientAPP.password;
+package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.password;
 
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;

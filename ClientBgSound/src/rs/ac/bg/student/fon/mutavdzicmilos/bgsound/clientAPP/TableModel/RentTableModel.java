@@ -19,7 +19,6 @@ public class RentTableModel extends AbstractTableModel {
 
     private final String[] columns = new String[]{"ID", "NAME", "SURNAME", "EQID", "COID", "DATE FROM"};
     private final Class[] classes = new Class[]{Integer.class, String.class, String.class, Integer.class, Integer.class, Date.class};
-    private static final Logger LOG = Logger.getLogger(RentTableModel.class.getName());
 
     public RentTableModel(List<Rent> rents) {
         this.rents = rents;
@@ -103,7 +102,6 @@ public class RentTableModel extends AbstractTableModel {
     public void removeRent(int index) {
         rents.remove(index);
         fireTableDataChanged();
-        fireTableRowsDeleted(rents.size() - 1, rents.size() - 1);
     }
 
     public List<Rent> getAll() {

@@ -5,13 +5,8 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form;
 
-import java.awt.HeadlessException;
-import java.io.IOException;
-import java.net.Socket;
+import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 
 /**
  *
@@ -25,7 +20,6 @@ public class FConnect extends javax.swing.JFrame {
     public FConnect() {
         initComponents();
          setLocationRelativeTo(null);
-        //popravi
         this.setIconImage(new ImageIcon("src\\resources\\BG_Sound.jpg").getImage());
     }
 
@@ -42,7 +36,7 @@ public class FConnect extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         textFieldPort = new javax.swing.JTextField();
         textFieldIP = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        bConnect = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Connection Settings");
@@ -52,24 +46,7 @@ public class FConnect extends javax.swing.JFrame {
 
         jLabel2.setText("Connection PORT:");
 
-        textFieldPort.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldPortActionPerformed(evt);
-            }
-        });
-
-        textFieldIP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                textFieldIPActionPerformed(evt);
-            }
-        });
-
-        jButton1.setText("Connect");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
+        bConnect.setText("Connect");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -87,7 +64,7 @@ public class FConnect extends javax.swing.JFrame {
                 .addContainerGap(136, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(124, 124, 124))
         );
         layout.setVerticalGroup(
@@ -102,55 +79,42 @@ public class FConnect extends javax.swing.JFrame {
                     .addComponent(jLabel2)
                     .addComponent(textFieldPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(bConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(59, 59, 59))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void textFieldPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldPortActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldPortActionPerformed
-
-    private void textFieldIPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_textFieldIPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_textFieldIPActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        try {
-            int port = Integer.parseInt(textFieldPort.getText().trim());
-            String ip = (textFieldIP.getText().trim());
-            connect(ip,port);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(null, "Enter correct values and check server");
-        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+public void addConnectListener(ActionListener mal) {
+        bConnect.addActionListener(mal);
+    }
+public void addKeyListener(java.awt.event.KeyListener e){
+    textFieldPort.addKeyListener( e);
+}
 
     /**
      * @param args the command line arguments
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bConnect;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JTextField textFieldIP;
     private javax.swing.JTextField textFieldPort;
     // End of variables declaration//GEN-END:variables
 
-    private void connect(String ip,int port) {
-      try{
-          Socket socket= new Socket(ip,port);
-          ThreadSaver.getInstance().setSocket(socket);
-        
-          JFrame login= new FLogin();
-           JOptionPane.showMessageDialog(null, "Connection success!\nPlease now type your login information.");
-          login.setVisible(true);
-          dispose();
-         
-      }catch(HeadlessException | IOException e){
-          JOptionPane.showMessageDialog(null, "Connection fail!\nServer fail!");
-      }
-          }
+    
+
+    public javax.swing.JButton getbConnect() {
+        return bConnect;
+    }
+
+    public javax.swing.JTextField getTextFieldIP() {
+        return textFieldIP;
+    }
+
+    public javax.swing.JTextField getTextFieldPort() {
+        return textFieldPort;
+    }
 }
