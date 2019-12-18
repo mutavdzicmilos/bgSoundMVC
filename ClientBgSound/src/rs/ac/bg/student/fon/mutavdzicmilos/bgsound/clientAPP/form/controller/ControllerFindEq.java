@@ -7,11 +7,11 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.EquipmentTableModel;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.FEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.FFindEq;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model.ModelFindEq;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
@@ -35,7 +35,11 @@ public class ControllerFindEq {
     }
 
     private void fillForm() {
-        view.gettEq().setModel(new EquipmentTableModel(model.getAllEquipment()));
+        try {
+            view.gettEq().setModel(new EquipmentTableModel(model.getAllEquipment()));
+        } catch (Exception ex) {
+             JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
         view.gettEq().getColumnModel().getColumn(0).setMinWidth(30);
         view.gettEq().getColumnModel().getColumn(0).setMaxWidth(30);
         view.gettEq().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -58,7 +62,11 @@ public class ControllerFindEq {
                 return;
             }
             Equipment eq = modele.getEquipment(ex);
-            eq.setCopies(model.getCopies(eq.getEquipmentID()));
+            try {
+                eq.setCopies(model.getCopies(eq.getEquipmentID()));
+            } catch (Exception ex1) {
+               JOptionPane.showMessageDialog(null, ex1.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+          }
             c.set(eq);
             view.dispose();
         }

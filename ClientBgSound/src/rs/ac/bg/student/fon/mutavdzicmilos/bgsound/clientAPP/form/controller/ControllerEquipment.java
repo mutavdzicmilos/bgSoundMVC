@@ -11,6 +11,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.FEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model.ModelEquipment;
@@ -92,24 +94,22 @@ public class ControllerEquipment {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (view.getcCopyChooser().getItemCount() == 0) {
-                return;
-            }
-            int eID = Integer.parseInt(view.gettID().getText());
-            int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
-            Copy c = new Copy(cID, eID);
-            boolean help = model.deleteCopy(c);
-            if (help) {
+            try {
+                if (view.getcCopyChooser().getItemCount() == 0) {
+                    return;
+                }
+                int eID = Integer.parseInt(view.gettID().getText());
+                int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
+                Copy c = new Copy(cID, eID);
+                boolean help = model.deleteCopy(c);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().removeItemAt(view.getcCopyChooser().getSelectedIndex());
                 if (view.getcCopyChooser().getItemCount() == 0) {
                     view.getjCopyPanel().setVisible(false);
                 }
-                return;
-            } else {
-                JOptionPane.showMessageDialog(null, "Error delete!Check if equipment is rented!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
+            } catch (Exception ex) {
+               JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                }
         }
 
     }
@@ -118,24 +118,23 @@ public class ControllerEquipment {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (view.getcCopyChooser().getItemCount() == 0) {
-                return;
-            }
-            int eID = Integer.parseInt(view.gettID().getText());
-            int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
-
-            Copy c = new Copy(cID, view.getrWTrue().isSelected(), view.getrATrue().isSelected(), new Equipment(eID), view.gettDefect().getText().trim());
-            boolean help = model.updateCopy(c);
-            if (help) {
+            try {
+                if (view.getcCopyChooser().getItemCount() == 0) {
+                    return;
+                }
+                int eID = Integer.parseInt(view.gettID().getText());
+                int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
+                
+                Copy c = new Copy(cID, view.getrWTrue().isSelected(), view.getrATrue().isSelected(), new Equipment(eID), view.gettDefect().getText().trim());
+                boolean help = model.updateCopy(c);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().removeItemAt(view.getcCopyChooser().getSelectedIndex());
                 if (view.getcCopyChooser().getItemCount() == 0) {
                     view.getjCopyPanel().setVisible(false);
                 }
-                return;
-            } else {
-                JOptionPane.showMessageDialog(null, "Error update!Check equipment!", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
+            } catch (Exception ex) {
+  JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               
             }
         }
 
@@ -154,25 +153,27 @@ public class ControllerEquipment {
 
         @Override
         public void actionPerformed(ActionEvent ex) {
-            String name = view.gettName().getText().trim();
-            String specification = view.gettSpecification().getText().trim();
-            String connection = view.gettConnection().getText().trim();
-            int copiesNo = Integer.valueOf(view.gettNumber().getValue().toString());
-
-            if (name.equals("") || specification.equals("") || connection.equals("")) {
-                JOptionPane.showMessageDialog(null, "Error input.Check values.", "Error", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-            List<Copy> copies = new ArrayList<>();
-            for (int i = 0; i < copiesNo; i++) {
-                copies.add(new Copy(i, true, true, null, null));
-
-            }
-            Equipment e = model.saveEquipment(new Equipment(connection, specification, name, copies));
-
-            if (e != null) {
+            try {
+                String name = view.gettName().getText().trim();
+                String specification = view.gettSpecification().getText().trim();
+                String connection = view.gettConnection().getText().trim();
+                int copiesNo = Integer.valueOf(view.gettNumber().getValue().toString());
+                
+                if (name.equals("") || specification.equals("") || connection.equals("")) {
+                    JOptionPane.showMessageDialog(null, "Error input.Check values.", "Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+                List<Copy> copies = new ArrayList<>();
+                for (int i = 0; i < copiesNo; i++) {
+                    copies.add(new Copy(i, true, true, null, null));
+                    
+                }
+                Equipment e = model.saveEquipment(new Equipment(connection, specification, name, copies));
+                
                 JOptionPane.showMessageDialog(null, "Saved sucessfully");
                 set(e);
+            } catch (Exception ex1) {
+JOptionPane.showMessageDialog(null, ex1.getMessage());
             }
 
         }

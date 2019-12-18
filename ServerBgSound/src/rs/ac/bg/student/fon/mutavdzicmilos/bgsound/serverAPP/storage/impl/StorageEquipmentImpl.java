@@ -43,8 +43,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
             statement.close();
 
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            throw new SQLException(ex.getMessage());
+            throw new Exception(ex.getMessage());
         }
 
         return equipments;
@@ -69,8 +68,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
             statement.close();
 
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            throw new SQLException(ex.getMessage());
+            throw new Exception(ex.getMessage());
         }
 
         return eq;
@@ -83,7 +81,6 @@ public class StorageEquipmentImpl implements StorageEquipment {
         }
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
-            //not good !
             String query = "insert into equipment(name,connection,specification) values(?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             connection.setAutoCommit(false);
@@ -99,7 +96,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
 
                 } else {
                     connection.rollback();
-                    return null;
+                    throw new Exception("Error saving equipment");
                 }
 
                 int br = equipment.getCopies().size();
@@ -118,7 +115,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
                             equipment.getCopies().get(i).setCopyID(rs.getInt(1));
                         } else {
                             connection.rollback();
-                            return null;
+                            throw new Exception("Error saving copies");
                         }
                     }
                 }
@@ -129,7 +126,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
 
             } else {
                 connection.rollback();
-                return equipment;
+                throw new Exception("Error saving equipment");
             }
 
         } catch (SQLException ex) {
@@ -187,7 +184,7 @@ public class StorageEquipmentImpl implements StorageEquipment {
                 return true;
             } else {
                 connection.rollback();
-                return false;
+                throw new Exception("Error saving equipment");
             }
 
         } catch (SQLException ex) {
@@ -212,7 +209,6 @@ public class StorageEquipmentImpl implements StorageEquipment {
             System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }
-
-        return false;
+        throw new Exception("Error saving equipment");
     }
 }

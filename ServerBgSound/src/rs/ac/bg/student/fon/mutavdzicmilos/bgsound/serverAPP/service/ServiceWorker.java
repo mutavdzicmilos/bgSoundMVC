@@ -12,5 +12,6 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Worker;
  * @author user
  */
 public interface ServiceWorker {
-    public Worker checkWorker(Worker worker);
+
+    public Worker checkWorker(Worker worker) throws Exception;
 }

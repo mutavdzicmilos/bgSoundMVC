@@ -23,10 +23,9 @@ public class ServiceWorkerImpl implements ServiceWorker{
     }
     
     @Override
-    public Worker checkWorker(Worker worker) {
-        try{
+    public Worker checkWorker(Worker worker) throws Exception{
             return storageWorker.checkWorker(worker);
-        }catch(Exception e){}
-    return null; }
+   
+    }
     
 }

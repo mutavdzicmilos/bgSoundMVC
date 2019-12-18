@@ -25,7 +25,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class ModelEquipment {
-     public Equipment saveEquipment(Equipment equipment) {
+     public Equipment saveEquipment(Equipment equipment) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -35,16 +35,17 @@ public class ModelEquipment {
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
             System.out.println(answer.getOperation());
-            if (answer.getOperation() == Answer.DONE) {
-                return (Equipment) answer.getData();
+             if (answer.getOperation() == Answer.DONE) {
+              return (Equipment) answer.getData();
             }
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
-     public boolean deleteCopy(Copy c) {
+     public boolean deleteCopy(Copy c) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -53,16 +54,17 @@ public class ModelEquipment {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (boolean) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelEquipment.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+              return (boolean) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-
-        return false;
-
     }
 
-    public boolean updateCopy(Copy c) {
+    public boolean updateCopy(Copy c) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -71,15 +73,17 @@ public class ModelEquipment {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (boolean) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelEquipment.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+              return (boolean) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-
-        return false;
     }
    
-          public List<Equipment> getAllEquipment() {
+          public List<Equipment> getAllEquipment() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -88,11 +92,13 @@ public class ModelEquipment {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Equipment>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelEquipment.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+              return (List<Equipment>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-
-        return null;
     }
 }

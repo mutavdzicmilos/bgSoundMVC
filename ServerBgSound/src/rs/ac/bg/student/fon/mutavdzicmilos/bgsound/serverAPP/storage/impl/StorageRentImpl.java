@@ -44,21 +44,20 @@ public class StorageRentImpl implements StorageRent {
                 preparedStatement.setBoolean(3, true);
                 preparedStatement.setInt(4, re.getRentID());
                 preparedStatement.setInt(2, worker.getWorkerID());
-                preparedStatement.executeUpdate();
+               int br= preparedStatement.executeUpdate();
+                System.out.println(br);
             }
             connection.commit();
             preparedStatement.close();
             return true;
         } catch (SQLException ex) {
-            System.out.println("here");
             connection.rollback();
-            ex.getMessage();
-            return false;
+            throw new Exception("Error in saving rents");
         }
 
     }
 
-    public boolean saveAll(List<Rent> rents) {
+    public boolean saveAll(List<Rent> rents) throws Exception {
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
             String query = "INSERT INTO rent (ClientID,EquipmentID,CopyID,DateFRom,DateTo,WorkerID) VALUES(?,?,?,?,?,?)";
@@ -74,21 +73,20 @@ public class StorageRentImpl implements StorageRent {
                 ps.setInt(6, r.getWorker().getWorkerID());
                 if (ps.executeUpdate() == 0) {
                     connection.rollback();
-                    return false;
+                    throw new Exception("Error saving rent.");
                 }
                 ps = connection.prepareStatement(query2);
                 ps.setInt(1, r.getCopy().getEquipment().getEquipmentID());
                 ps.setInt(2, r.getCopy().getCopyID());
                 if (ps.executeUpdate() == 0) {
                     connection.rollback();
-                    return false;
+                    throw new Exception("Error saving rent in copies.");
                 }
 
             }
             connection.commit();
         } catch (Exception e) {
-            e.printStackTrace();
-            return false;
+            throw new Exception(e.getMessage());
         }
         return true;
     }
@@ -120,7 +118,6 @@ public class StorageRentImpl implements StorageRent {
             statement.close();
             return rents;
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }
 
@@ -148,10 +145,9 @@ public class StorageRentImpl implements StorageRent {
             statement.close();
             return rent;
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
 
     @Override
@@ -179,10 +175,9 @@ public class StorageRentImpl implements StorageRent {
 
             return rent;
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
 
     }
 

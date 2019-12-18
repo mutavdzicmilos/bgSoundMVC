@@ -45,12 +45,11 @@ public class StorageClientImpl implements StorageClient {
                 connection.commit();
             } else {
                 connection.rollback();
+                throw new Exception("Error saving client to database");
             }
             preparedStatement.close();
             return client;
         } catch (SQLException ex) {
-            ex.printStackTrace();
-            System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }
 
@@ -159,15 +158,14 @@ public class StorageClientImpl implements StorageClient {
                 return true;
             } else {
                 connection.rollback();
+                throw new Exception("Error updating client in database");
             }
-            preparedStatement.close();
-            
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }
 
-        return false;
     }
 
     @Override
@@ -183,12 +181,12 @@ public class StorageClientImpl implements StorageClient {
                 return true;
             }
             connection.rollback();
+            throw new Exception("Error deleting client from database");
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }
 
-        return false;
     }
 
     @Override
@@ -206,8 +204,7 @@ public class StorageClientImpl implements StorageClient {
             System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
         }
-
-        return false;
+        throw new Exception("Error deleting client from database");
     }
 
 }

@@ -26,65 +26,37 @@ public class ServiceCopyImpl implements ServiceCopy {
 
     @Override
     public List<Copy> getAll() throws Exception {
-        try {
-            return storageCopy.getAll();
-        } catch (Exception e) {
-            return null;
-        }
+        return storageCopy.getAll();
 
     }
 
     @Override
     public boolean setCopy(Copy copy) throws Exception {
-        try {
-            return storageCopy.setCopy(copy);
-        } catch (Exception e) {
-            return false;
-        }
+        return storageCopy.setCopy(copy);
     }
 
     @Override
     public Copy getCopy(Copy copy) throws Exception {
-        try {
-            return storageCopy.getCopy(copy);
-        } catch (Exception e) {
-            return null;
-        }
+        return storageCopy.getCopy(copy);
     }
 
     @Override
     public boolean setCopy(List<Copy> copies) throws Exception {
-        try {
-            return storageCopy.setCopy(copies);
-        } catch (Exception e) {
-            return false;
-        }
+        return storageCopy.setCopy(copies);
     }
 
     @Override
     public boolean changeCopy(Copy copy) throws Exception {
-        try {
-            return storageCopy.changeCopy(copy);
-        } catch (Exception e) {
-            return false;
-        }
+        return storageCopy.changeCopy(copy);
     }
 
     @Override
     public List<Copy> getAllEquipment(int id) throws Exception {
-        try {
-            return storageCopy.getAllEquipment(id);
-        } catch (Exception e) {
-            return null;
-        }
+        return storageCopy.getAllEquipment(id);
     }
 
     @Override
     public boolean deleteCopy(int coId, int eqId) throws Exception {
-        try {
-            return storageCopy.deleteCopy(coId, eqId);
-        } catch (Exception e) {
-            return false;
-        }
+        return storageCopy.deleteCopy(coId, eqId);
     }
 }

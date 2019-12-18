@@ -68,20 +68,20 @@ public class ControllerDischarge {
             int dialog = JOptionPane.YES_NO_OPTION;
             JOptionPane.showConfirmDialog(null, "Do you want do discharge selected rents", "Confirmation", dialog);
             if (dialog == JOptionPane.YES_OPTION) {
-                RentTableModel rt = (RentTableModel) view.gettDischarge().getModel();
-                List<Rent> rents = rt.getAll();
-                if (rents == null || rents.size() == 0) {
-                    JOptionPane.showMessageDialog(null, "Please,select the rents.");
-                    return;
-                }
-                boolean help = model.dischargeAll(rents);
-                if (help) {
+                try {
+                    RentTableModel rt = (RentTableModel) view.gettDischarge().getModel();
+                    List<Rent> rents = rt.getAll();
+                    if (rents == null || rents.size() == 0) {
+                        JOptionPane.showMessageDialog(null, "Please,select the rents.");
+                        return;
+                    }
+                    boolean help = model.dischargeAll(rents);
                     JOptionPane.showMessageDialog(null, "Successfully discharged");
                     fillForm();
-                } else {
-                    JOptionPane.showMessageDialog(null, "Error discharging");
-                    fillForm();
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null,ex.getMessage());
                 }
+
             }
 
         }
@@ -137,26 +137,31 @@ public class ControllerDischarge {
 
         @Override
         public void mouseClicked(MouseEvent e) {
-            int br = view.gettRents().getSelectedRow();
-            if (br == -1) {
-                view.getpRent().setVisible(false);
-                return;
+            try {
+                int br = view.gettRents().getSelectedRow();
+                if (br == -1) {
+                    view.getpRent().setVisible(false);
+                    return;
+                }
+                int tm = (int) view.gettRents().getModel().getValueAt(br, 0);
+                
+                Rent help = model.getRentByID(tm);
+                if (help != null && help.getCopy() != null && help.getCopy() != null && help.getCopy().getEquipment() != null) {
+                    view.gettRentID().setText(String.valueOf(help.getRentID()));
+                    view.gettCoID().setText(String.valueOf(help.getCopy().getCopyID()));
+                    view.gettEID().setText(String.valueOf(help.getCopy().getEquipment().getEquipmentID()));
+                    view.gettCID().setText(String.valueOf(help.getClient().getClientID()));
+                    view.gettCName().setText(help.getClient().getName());
+                    view.gettSurname().setText(help.getClient().getSurname());
+                    view.gettDateRented().setText(String.valueOf(help.getDateFrom()));
+                    view.gettEName().setText(help.getCopy().getEquipment().getName());
+                    view.getpRent().setVisible(true);
+                }
+                setTable();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage());
+                setTable();
             }
-            int tm = (int) view.gettRents().getModel().getValueAt(br, 0);
-
-            Rent help = model.getRentByID(tm);
-            if (help != null && help.getCopy() != null && help.getCopy() != null && help.getCopy().getEquipment() != null) {
-                view.gettRentID().setText(String.valueOf(help.getRentID()));
-                view.gettCoID().setText(String.valueOf(help.getCopy().getCopyID()));
-                view.gettEID().setText(String.valueOf(help.getCopy().getEquipment().getEquipmentID()));
-                view.gettCID().setText(String.valueOf(help.getClient().getClientID()));
-                view.gettCName().setText(help.getClient().getName());
-                view.gettSurname().setText(help.getClient().getSurname());
-                view.gettDateRented().setText(String.valueOf(help.getDateFrom()));
-                view.gettEName().setText(help.getCopy().getEquipment().getName());
-                view.getpRent().setVisible(true);
-            }
-            setTable();
         }
 
         @Override

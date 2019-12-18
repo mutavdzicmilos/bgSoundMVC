@@ -7,6 +7,8 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.controller;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.ClientTableModel;
@@ -30,7 +32,12 @@ public class ControllerFindClient {
     }
 
     private void fillform() {
-        view.gettClients().setModel(new ClientTableModel(model.getAllClients()));
+        try {
+            view.gettClients().setModel(new ClientTableModel(model.getAllClients()));
+        } catch (Exception ex) {
+              JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+               
+        }
         view.gettClients().getColumnModel().getColumn(0).setMinWidth(30);
         view.gettClients().getColumnModel().getColumn(0).setMaxWidth(30);
         view.gettClients().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

@@ -108,17 +108,15 @@ public class ControllerNewClient {
         public void actionPerformed(ActionEvent e) {
             int id = Integer.parseInt(view.gettID().getText().trim());
 
-            boolean b = model.deleteClient(new Client(id));
-            if (b) {
-                //  form.fillform();
+            try {
+                model.deleteClient(new Client(id));
                 JOptionPane.showMessageDialog(null, "Client deleted sucessfully", "Success", JOptionPane.INFORMATION_MESSAGE);
                 new ControllerSearchClient();
                 view.dispose();
-            } else {
-                JOptionPane.showMessageDialog(null, "Error delating client.Check if client is discharged.", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "PROBLEM", JOptionPane.ERROR_MESSAGE);
             }
-            view.dispose();
+
         }
 
     }
@@ -131,19 +129,17 @@ public class ControllerNewClient {
             String jmbg = view.gettJMBG().getText().trim();
             String surname = view.gettSurname().getText().trim();
             String phone = view.gettPhone().getText().trim();
-            if (name.equals("") || jmbg.equals("") || surname.equals("") || phone.equals("")) {
-                JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
             Client client = new Client(name, surname, jmbg, phone);
-            Client help = model.saveClient(client);
-            if (help != null && help.getClientID() != null) {
+            Client help;
+            try {
+                help = model.saveClient(client);
                 JOptionPane.showMessageDialog(null, "Client saved sucessfully!");
 
                 view.gettID().setText(help.getClientID().toString());
-            } else {
-                JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "PROBLEM", JOptionPane.ERROR_MESSAGE);
             }
+
         }
     }
 
@@ -151,22 +147,22 @@ public class ControllerNewClient {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            int id = Integer.parseInt(view.gettID().getText().trim());
-            String name = view.gettName().getText().trim();
-            String jmbg = view.gettJMBG().getText().trim();
-            String surname = view.gettSurname().getText().trim();
-            String phone = view.gettPhone().getText().trim();
-            Client client = new Client(name, surname, jmbg, id, phone);
-            boolean b = model.updateClient(client);
-            if (b) {
+            try {
+                int id = Integer.parseInt(view.gettID().getText().trim());
+                String name = view.gettName().getText().trim();
+                String jmbg = view.gettJMBG().getText().trim();
+                String surname = view.gettSurname().getText().trim();
+                String phone = view.gettPhone().getText().trim();
+                Client client = new Client(name, surname, jmbg, id, phone);
+                model.updateClient(client);
                 JOptionPane.showMessageDialog(null, "Client updated sucessfully");
                 new ControllerSearchClient();
                 view.dispose();
 
-            } else {
-                JOptionPane.showMessageDialog(null, "Error saving client", "PROBLEM", JOptionPane.ERROR_MESSAGE);
-
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "PROBLEM", JOptionPane.ERROR_MESSAGE);
             }
+
         }
 
     }

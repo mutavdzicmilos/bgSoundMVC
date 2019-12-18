@@ -5,16 +5,16 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Action;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Answer;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
 
 /**
@@ -22,7 +22,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class ModelFindClient {
-     public List<Client> getAllClients() {
+     public List<Client> getAllClients() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -31,11 +31,13 @@ public class ModelFindClient {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Client>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+              return (List<Client>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-
-        return null;
     }
 }

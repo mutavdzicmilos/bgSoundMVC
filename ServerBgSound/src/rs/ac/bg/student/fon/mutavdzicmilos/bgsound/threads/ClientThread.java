@@ -5,6 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.threads;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -51,10 +52,16 @@ class ClientThread extends Thread {
                 switch (receive.getOperation()) {
                     case 0: {
                         Worker w = (Worker) receive.getObject();
-                        w = ServerController.getInstance().getServiceWorker().checkWorker(w);
-
+                        try {
+                            w = ServerController.getInstance().getServiceWorker().checkWorker(w);
+                        } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
+                            break;
+                        }
                         if (w.getWorkerID() == null || serverThread.getForm().hasWorker(w)) {
                             answer.setOperation(Answer.ERROR);
+                            answer.setError(new Exception("Already logged"));
                         } else {
                             worker = w;
                             serverThread.getForm().addWorker(w);
@@ -65,40 +72,54 @@ class ClientThread extends Thread {
 
                     }
                     case 1: {
-                        List<Equipment> clients = ServerController.getInstance().getServiceEquipment().getAll();
+                        List<Equipment> clients;
                         try {
+                            clients = ServerController.getInstance().getServiceEquipment().getAll();
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
-                        } catch (Exception e) {
+                        } catch (Exception ex) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
+
                         break;
                     }
                     case 2: {
-                        List<Client> clients = ServerController.getInstance().getServiceClient().returnAllClients();
+                        List<Client> clients;
                         try {
+                            clients = ServerController.getInstance().getServiceClient().returnAllClients();
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
-                        } catch (Exception e) {
+                        } catch (Exception ex) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
+
                         break;
                     }
                     case 3: {
 
-                        List<Copy> copies = ServerController.getInstance().getServiceCopy().getAll();
+                        List<Copy> copies;
                         try {
+                            copies = ServerController.getInstance().getServiceCopy().getAll();
                             answer.setOperation(Answer.DONE);
                             answer.setData(copies);
-                        } catch (Exception e) {
+                        } catch (Exception ex) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
+
                         break;
 
                     }
                     case 4: {
-                        List<Rent> clients = ServerController.getInstance().getServiceRent().getAll();
                         try {
+                            List<Rent> clients = ServerController.getInstance().getServiceRent().getAll();
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
@@ -107,17 +128,13 @@ class ClientThread extends Thread {
                         Equipment help;
                         try {
                             help = ServerController.getInstance().getServiceEquipment().setEquipment(e);
-                            if (help != null && help.getEquipmentID() != null) {
-                                answer.setOperation(Answer.DONE);
-                            } else {
-                                answer.setOperation(Answer.ERROR);
-                            }
-
                             answer.setData(help);
-
+                            answer.setOperation(Answer.DONE);
                         } catch (Exception ex) {
-                            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
+
                         break;
 
                     }
@@ -126,15 +143,11 @@ class ClientThread extends Thread {
                         Client c = (Client) receive.getObject();
                         try {
                             Client help = ServerController.getInstance().getServiceClient().saveClient(c);
-                            if (help.getClientID() != null) {
-                                answer.setOperation(Answer.DONE);
-                            } else {
-                                answer.setOperation(Answer.ERROR);
-
-                            }
                             answer.setData(help);
+                            answer.setOperation(Answer.DONE);
                         } catch (Exception ex) {
-                            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
 
                         break;
@@ -143,14 +156,11 @@ class ClientThread extends Thread {
                         Client c = (Client) receive.getObject();
                         try {
                             boolean b = ServerController.getInstance().getServiceClient().updateClient(c);
-                            if (b == true) {
-                                answer.setOperation(Answer.DONE);
-                            } else {
-                                answer.setOperation(Answer.ERROR);
-                            }
+                            answer.setOperation(Answer.DONE);
                             answer.setData(b);
                         } catch (Exception ex) {
-                            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
 
                         break;
@@ -159,85 +169,103 @@ class ClientThread extends Thread {
                         Client c = (Client) receive.getObject();
                         try {
                             boolean b = ServerController.getInstance().getServiceClient().deleteClient(c);
-                            if (b == true) {
-                                answer.setOperation(Answer.DONE);
-                            } else {
-                                answer.setOperation(Answer.ERROR);
-                            }
+                            answer.setOperation(Answer.DONE);
                             answer.setData(b);
                         } catch (Exception ex) {
-                            Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(ex);
                         }
 
                         break;
                     }
                     case 11: {
                         int s = (Integer) receive.getObject();
-                        Client client = ServerController.getInstance().getServiceClient().returnByID(s);
+
                         try {
+                            Client client = ServerController.getInstance().getServiceClient().returnByID(s);
                             answer.setOperation(Answer.DONE);
                             answer.setData(client);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
                     case 12: {
                         String s = receive.getObject().toString();
-                        List<Client> clients = ServerController.getInstance().getServiceClient().returnByName(s);
+
                         try {
+                            List<Client> clients = ServerController.getInstance().getServiceClient().returnByName(s);
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
                     case 13: {
                         int br = (Integer) receive.getObject();
-                        List<Copy> clients = ServerController.getInstance().getServiceCopy().getAllEquipment(br);
+
                         try {
+                            List<Copy> clients = ServerController.getInstance().getServiceCopy().getAllEquipment(br);
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
                     case 14: {
                         Copy copy = (Copy) receive.getObject();
-                        boolean help = ServerController.getInstance().getServiceCopy().deleteCopy(copy.getCopyID(), copy.getEquipment().getEquipmentID());
                         try {
+                            boolean help = ServerController.getInstance().getServiceCopy().deleteCopy(copy.getCopyID(), copy.getEquipment().getEquipmentID());
+
                             answer.setOperation(Answer.DONE);
                             answer.setData(help);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
                     case 15: {
                         Copy copy = (Copy) receive.getObject();
-                        boolean help = ServerController.getInstance().getServiceCopy().changeCopy(copy);
+
                         try {
+                            boolean help = ServerController.getInstance().getServiceCopy().changeCopy(copy);
                             answer.setOperation(Answer.DONE);
                             answer.setData(help);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
                     case 16: {
                         int copy = (int) receive.getObject();
-                        Rent help = ServerController.getInstance().getServiceRent().get(copy);
+
                         try {
+                            Rent help = ServerController.getInstance().getServiceRent().get(copy);
                             answer.setOperation(Answer.DONE);
                             answer.setData(help);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
                     case 17: {
                         List<Rent> rents = (List<Rent>) receive.getObject();
-                        boolean help = ServerController.getInstance().getServiceRent().discharge(rents, worker);
                         try {
+
+                            boolean help = ServerController.getInstance().getServiceRent().discharge(rents, worker);
                             answer.setOperation(Answer.DONE);
                             answer.setData(help);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
@@ -246,11 +274,14 @@ class ClientThread extends Thread {
                         for (Rent r : rents) {
                             r.setWorker(worker);
                         }
-                        boolean help = ServerController.getInstance().getServiceRent().saveAll(rents);
+
                         try {
+                            boolean help = ServerController.getInstance().getServiceRent().saveAll(rents);
                             answer.setOperation(Answer.DONE);
                             answer.setData(help);
                         } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
                         }
                         break;
                     }
@@ -260,11 +291,13 @@ class ClientThread extends Thread {
                 output.writeObject(answer);
                 output.flush();
 
-            } catch (Exception ex) {
+            } catch (IOException ex) {
                 if (worker != null) {
                     serverThread.getForm().removeWorker(worker);
                 }
                 return;
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ClientThread.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
 

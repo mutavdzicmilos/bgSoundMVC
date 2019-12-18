@@ -5,6 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,6 +16,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Action;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Answer;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
 
 /**
@@ -23,7 +25,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
  */
 public class ModelDischarge {
 
-    public List<Rent> getAllRents() {
+    public List<Rent> getAllRents() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -32,15 +34,18 @@ public class ModelDischarge {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Rent>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+             if (answer.getOperation() == Answer.DONE) {
+              return (List<Rent>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
 
-    public boolean dischargeAll(List<Rent> rents) {
+    public boolean dischargeAll(List<Rent> rents) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -49,15 +54,18 @@ public class ModelDischarge {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (boolean) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelDischarge.class.getName()).log(Level.SEVERE, null, ex);
+             if (answer.getOperation() == Answer.DONE) {
+              return (boolean) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return false;
     }
 
-    public Rent getRentByID(int rentID) {
+    public Rent getRentByID(int rentID) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -66,11 +74,14 @@ public class ModelDischarge {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (Rent) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelDischarge.class.getName()).log(Level.SEVERE, null, ex);
+             if (answer.getOperation() == Answer.DONE) {
+              return (Rent) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
 }

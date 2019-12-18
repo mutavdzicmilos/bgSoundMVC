@@ -59,7 +59,6 @@ public class StorageCopyImpl implements StorageCopy {
         }
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
-            //not good !
             String query = "insert into Copy(equipmentID,working,available,defect) values(?,?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             connection.setAutoCommit(false);
@@ -81,7 +80,7 @@ public class StorageCopyImpl implements StorageCopy {
 
             } else {
                 connection.rollback();
-                return false;
+                throw new Exception("Error in saving copy");
             }
 
         } catch (SQLException ex) {
@@ -123,7 +122,6 @@ public class StorageCopyImpl implements StorageCopy {
 
     }
 
-
     @Override
     public boolean setCopy(List<Copy> copies) throws Exception {
         boolean save = true;
@@ -138,7 +136,7 @@ public class StorageCopyImpl implements StorageCopy {
     @Override
     public boolean changeCopy(Copy copy) throws Exception {
         if (copy == null || copy.getEquipment() == null) {
-            return false;
+            throw new Exception("Copy is not valid. Error");
         }
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
@@ -157,6 +155,7 @@ public class StorageCopyImpl implements StorageCopy {
                 return true;
             } else {
                 connection.rollback();
+                throw new Exception("Error saving copy to database");
             }
 
         } catch (SQLException ex) {
@@ -164,7 +163,6 @@ public class StorageCopyImpl implements StorageCopy {
             throw new SQLException(ex.getMessage());
         }
 
-        return false;
     }
 
     @Override
@@ -211,12 +209,11 @@ public class StorageCopyImpl implements StorageCopy {
             statement.close();
             if (br != 0) {
                 connection.commit();
+                return true;
             }
-            return br != 0;
-
+            throw new Exception("Error deleting copy from database");
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-            throw new SQLException(ex.getMessage());
+            throw new Exception(ex.getMessage());
         }
     }
 

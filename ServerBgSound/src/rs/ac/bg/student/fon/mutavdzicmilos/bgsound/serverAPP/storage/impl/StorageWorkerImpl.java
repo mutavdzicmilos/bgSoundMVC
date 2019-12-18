@@ -37,12 +37,10 @@ public class StorageWorkerImpl implements StorageWorker {
                 return worker;
             }
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
             throw new SQLException(ex.getMessage());
-            
-        }
 
-        return worker;
+        }
+        throw new Exception("No such user");
     }
 
 }

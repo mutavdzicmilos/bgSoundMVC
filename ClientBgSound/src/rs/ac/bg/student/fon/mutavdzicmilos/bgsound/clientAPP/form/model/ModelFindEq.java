@@ -5,6 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -15,6 +16,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Action;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Answer;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
 
@@ -23,7 +25,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class ModelFindEq {
-    public List<Copy> getCopies(int equipment) {
+    public List<Copy> getCopies(int equipment) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -32,14 +34,16 @@ public class ModelFindEq {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Copy>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelFindEq.class.getName()).log(Level.SEVERE, null, ex);
+           if (answer.getOperation() == Answer.DONE) {
+              return (List<Copy>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-
-        return null;
     }
-    public List<Equipment> getAllEquipment() {
+    public List<Equipment> getAllEquipment() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -48,11 +52,13 @@ public class ModelFindEq {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Equipment>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelFindEq.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+              return (List<Equipment>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+            
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-
-        return null;
     }
 }

@@ -10,5 +10,5 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public interface Validation {
-    public String validate(Object o);
+    public void validate(Object o)throws Exception;
 }

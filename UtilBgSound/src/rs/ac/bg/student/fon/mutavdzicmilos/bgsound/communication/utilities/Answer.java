@@ -10,6 +10,6 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public enum Answer {
- ERROR,DONE,PROBLEM;
+ ERROR,DONE;
     
 }

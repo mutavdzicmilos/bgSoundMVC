@@ -9,8 +9,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
@@ -41,14 +39,13 @@ public class ModelLogin {
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
             if (answer.getOperation().equals(Answer.ERROR)) {
-               throw new Exception("No worker with this credentials");
+               throw new Exception(answer.getError());
             }
             return (Worker) answer.getData();
         } catch (IOException | ClassNotFoundException ex) {
-            Logger.getLogger(ModelLogin.class.getName()).log(Level.SEVERE, null, ex);
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
 
 }

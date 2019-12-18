@@ -10,6 +10,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.ServiceClient;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageClient;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.StorageClientImpl;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.Validation;
 
 /**
  *
@@ -18,81 +19,53 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.Storag
 public class ServiceClientImpl implements ServiceClient {
 
     StorageClient storageClient;
+    Validation validation;
 
     public ServiceClientImpl() {
         storageClient = new StorageClientImpl();
     }
 
     @Override
-    public Client saveClient(Client client) {
-        try {
+    public Client saveClient(Client client) throws Exception {
+            validation= new Validation() {
+                @Override
+                public void validate(Object o) throws Exception {
+                    //implement validation
+                            throw new Exception("Wrong jmbg");
+                }
+            };
+            validation.validate(client);
             return storageClient.saveClient(client);
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Line 27 StorageClientImpl");
-        }
-        return null;
     }
 
     @Override
-    public List<Client> returnAllClients() {
-        try {
+    public List<Client> returnAllClients() throws Exception {
             return storageClient.returnAllClients();
-        } catch (Exception e) {
-            e.printStackTrace();
-            System.out.println("Line 37 StorageClientImpl");
-        }
-        return null;
     }
 
     @Override
-    public List<Client> returnByName(String name) {
-        try {
+    public List<Client> returnByName(String name) throws Exception {
             return storageClient.returnByName(name);
-        } catch (Exception e) {
-            System.out.println("Line 46 StorageClientImpl");
-        }
-        return null;
     }
 
     @Override
-    public Client returnByID(int id) {
-        try {
+    public Client returnByID(int id) throws Exception {
             return storageClient.returnByID(id);
-        } catch (Exception e) {
-            System.out.println("Line 55 StorageClientImpl");
-        }
-        return null;
     }
 
     @Override
-    public boolean updateClient(Client client) {
-        try {
+    public boolean updateClient(Client client) throws Exception {
             return storageClient.updateClient(client);
-        } catch (Exception e) {
-            System.out.println("Line 73 StorageClientImpl");
-        }
-        return false;
     }
 
     @Override
-    public boolean deleteClient(Client client) {
-        try {
+    public boolean deleteClient(Client client) throws Exception {
             return storageClient.deleteClient(client);
-        } catch (Exception e) {
-            System.out.println("Line 82 StorageClientImpl");
-        }
-        return false;
     }
 
     @Override
-    public boolean deleteClient(int client) {
-        try {
+    public boolean deleteClient(int client) throws Exception {
             return storageClient.deleteClient(client);
-        } catch (Exception e) {
-            System.out.println("Line 82 StorageClientImpl");
-        }
-        return false;
 
     }
 }

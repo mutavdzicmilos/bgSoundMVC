@@ -6,7 +6,6 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication;
 
 import java.io.Serializable;
-import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Action;
 
 /**
  *

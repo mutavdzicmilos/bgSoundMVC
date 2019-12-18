@@ -15,10 +15,12 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Answe
 public class ServerAnswerObject implements Serializable{
     private Answer operation;
     private Object data;
+    private Exception error;
 
-    public ServerAnswerObject(Answer operation, Object data) {
+    public ServerAnswerObject(Answer operation, Object data,Exception e) {
         this.operation = operation;
         this.data = data;
+        this.error= e;
     }
 
     public ServerAnswerObject() {
@@ -40,6 +42,14 @@ public class ServerAnswerObject implements Serializable{
 
     public void setOperation(Answer operation) {
         this.operation = operation;
+    }
+
+    public Exception getError() {
+        return error;
+    }
+
+    public void setError(Exception error) {
+        this.error = error;
     }
 
     

@@ -10,8 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
@@ -24,7 +22,8 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class ModelClient {
-public List<Client> getAllClients() {
+
+    public List<Client> getAllClients() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -33,14 +32,17 @@ public List<Client> getAllClients() {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Client>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+                return (List<Client>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
-    public Client getClientsByID(int id) {
+
+    public Client getClientsByID(int id) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -49,15 +51,17 @@ public List<Client> getAllClients() {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (Client) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+                return (Client) answer.getData();
+            }
+            throw new Exception(answer.getError());
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
 
-    public List<Client> getClientsByName(String name) {
+    public List<Client> getClientsByName(String name) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -66,15 +70,17 @@ public List<Client> getAllClients() {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Client>) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+                return (List<Client>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
 
-        return null;
     }
 
-    public boolean updateClient(Client client) {
+    public boolean updateClient(Client client) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -83,14 +89,16 @@ public List<Client> getAllClients() {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (boolean) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+            if (answer.getOperation() == Answer.DONE) {
+                return (boolean) answer.getData();
+            }
+            throw new Exception(answer.getError());
+        } catch (IOException | ClassNotFoundException ex) {
+            throw new Exception(ex.getMessage());
         }
-        return false;
     }
 
-    public Client saveClient(Client client) {
+    public Client saveClient(Client client) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -103,15 +111,15 @@ public List<Client> getAllClients() {
             if (answer.getOperation() == Answer.DONE) {
                 return (Client) answer.getData();
             }
+            throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            throw new Exception(e.getMessage());
         }
 
-        return null;
 
     }
 
-    public boolean deleteClient(Client client) {
+    public boolean deleteClient(Client client) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -120,10 +128,11 @@ public List<Client> getAllClients() {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
+            if(answer.getOperation()==Answer.DONE)
             return (boolean) answer.getData();
-        } catch (Exception ex) {
-            Logger.getLogger(ModelClient.class.getName()).log(Level.SEVERE, null, ex);
+              throw new Exception(answer.getError());
+        }  catch (IOException | ClassNotFoundException e) {
+            throw new Exception(e.getMessage());
         }
-        return false;
     }
 }

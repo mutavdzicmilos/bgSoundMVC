@@ -26,67 +26,32 @@ public class ServiceEquipmentImpl implements ServiceEquipment {
     }
 
     @Override
-    public List<Equipment> getAll() {
-        try {
-            return storageEquipment.getAll();
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceEquipmentImpl.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return null;
-        }
+    public List<Equipment> getAll() throws Exception {
+        return storageEquipment.getAll();
     }
 
     @Override
-    public Equipment getByID(int id) {
-        try {
-            return storageEquipment.getByID(id);
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceEquipmentImpl.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return null;
-        }}
+    public Equipment getByID(int id) throws Exception {
+        return storageEquipment.getByID(id);
+    }
 
     @Override
     public Equipment setEquipment(Equipment equipment) throws Exception {
-        try {
-            return storageEquipment.setEquipment(equipment);
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceEquipmentImpl.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return null;
-        }
+        return storageEquipment.setEquipment(equipment);
     }
 
     @Override
     public List<Equipment> getByName(String name) throws Exception {
-     try {
-            return storageEquipment.getByName(name);
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceEquipmentImpl.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return null;
-        }
-     }
+        return storageEquipment.getByName(name);
+    }
 
     @Override
     public boolean changeEquipment(Equipment equipment) throws Exception {
-       try {
-            return storageEquipment.changeEquipment(equipment);
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceEquipmentImpl.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return false;
-        }
-     }
+        return storageEquipment.changeEquipment(equipment);
+    }
 
     @Override
     public boolean delete(int id) throws Exception {
-      try {
-            return storageEquipment.delete(id);
-        } catch (Exception ex) {
-            Logger.getLogger(ServiceEquipmentImpl.class.getName()).log(Level.SEVERE, null, ex);
-            System.out.println(ex.getMessage());
-            return false;
-        }
-     }
+        return storageEquipment.delete(id);
+    }
 }

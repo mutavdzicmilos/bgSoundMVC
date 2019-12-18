@@ -29,7 +29,7 @@ public class ServiceRentImpl implements ServiceRent {
         try {
             return storageRent.discharge(rents, worker);
         } catch (Exception e) {
-            return false;
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -38,7 +38,7 @@ public class ServiceRentImpl implements ServiceRent {
         try {
             return storageRent.getAll();
         } catch (Exception e) {
-            return null;
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -47,7 +47,7 @@ public class ServiceRentImpl implements ServiceRent {
         try {
             return storageRent.getByID(id);
         } catch (Exception e) {
-            return null;
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class ServiceRentImpl implements ServiceRent {
         try {
             return storageRent.get(id);
         } catch (Exception e) {
-            return null;
+            throw new Exception(e.getMessage());
         }
     }
 
@@ -65,7 +65,7 @@ public class ServiceRentImpl implements ServiceRent {
         try {
             return storageRent.saveAll(rents);
         } catch (Exception e) {
-            return false;
+            throw new Exception(e.getMessage());
         }
     }
 
