@@ -71,11 +71,8 @@ public class ControllerDischarge {
                 try {
                     RentTableModel rt = (RentTableModel) view.gettDischarge().getModel();
                     List<Rent> rents = rt.getAll();
-                    if (rents == null || rents.size() == 0) {
-                        JOptionPane.showMessageDialog(null, "Please,select the rents.");
-                        return;
-                    }
-                    boolean help = model.dischargeAll(rents);
+                    
+                    model.dischargeAll(rents);
                     JOptionPane.showMessageDialog(null, "Successfully discharged");
                     fillForm();
                 } catch (Exception ex) {

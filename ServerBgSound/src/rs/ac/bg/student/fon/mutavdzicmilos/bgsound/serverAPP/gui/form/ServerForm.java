@@ -6,7 +6,6 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.gui.form;
 
 import java.io.IOException;
-import java.net.ServerSocket;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -194,11 +193,16 @@ public class ServerForm extends javax.swing.JFrame {
     }//GEN-LAST:event_bConnectActionPerformed
 
     private void bDisconnectActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bDisconnectActionPerformed
+        try {
+            if (serverThread.getServerSocket() != null && serverThread.getServerSocket().isBound()) {
+                serverThread.getServerSocket().close();
+            }
+        } catch (IOException ex) {
+            System.out.println(ex.getMessage());
+        }
+
         fillForm();
         tWorkers.setModel(new WorkerTableModel());
-       // serverThread.closeAll();
-        serverThread.interrupt();
-        serverThread = null;
 
 
     }//GEN-LAST:event_bDisconnectActionPerformed
@@ -257,7 +261,7 @@ public class ServerForm extends javax.swing.JFrame {
     }
 
     public boolean hasWorker(Worker w) {
-       WorkerTableModel tm = (WorkerTableModel) tWorkers.getModel();
-       return tm.getWorkers().contains(w);
+        WorkerTableModel tm = (WorkerTableModel) tWorkers.getModel();
+        return tm.getWorkers().contains(w);
     }
 }

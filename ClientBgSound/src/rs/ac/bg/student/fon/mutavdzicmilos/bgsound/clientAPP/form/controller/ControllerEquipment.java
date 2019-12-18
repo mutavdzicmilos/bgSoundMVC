@@ -11,8 +11,6 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.FEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model.ModelEquipment;
@@ -101,7 +99,7 @@ public class ControllerEquipment {
                 int eID = Integer.parseInt(view.gettID().getText());
                 int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
                 Copy c = new Copy(cID, eID);
-                boolean help = model.deleteCopy(c);
+               model.deleteCopy(c);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().removeItemAt(view.getcCopyChooser().getSelectedIndex());
                 if (view.getcCopyChooser().getItemCount() == 0) {
@@ -126,7 +124,7 @@ public class ControllerEquipment {
                 int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
                 
                 Copy c = new Copy(cID, view.getrWTrue().isSelected(), view.getrATrue().isSelected(), new Equipment(eID), view.gettDefect().getText().trim());
-                boolean help = model.updateCopy(c);
+                model.updateCopy(c);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().removeItemAt(view.getcCopyChooser().getSelectedIndex());
                 if (view.getcCopyChooser().getItemCount() == 0) {

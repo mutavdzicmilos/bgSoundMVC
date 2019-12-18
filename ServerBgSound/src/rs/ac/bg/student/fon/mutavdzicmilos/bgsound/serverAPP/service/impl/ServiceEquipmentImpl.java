@@ -6,12 +6,11 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.impl;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Equipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.ServiceEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.StorageEquipmentImpl;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.Validation;
 
 /**
  *
@@ -20,7 +19,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.Storag
 public class ServiceEquipmentImpl implements ServiceEquipment {
 
     private StorageEquipment storageEquipment;
-
+    private Validation validator;
     public ServiceEquipmentImpl() {
         this.storageEquipment = new StorageEquipmentImpl();
     }
@@ -37,6 +36,7 @@ public class ServiceEquipmentImpl implements ServiceEquipment {
 
     @Override
     public Equipment setEquipment(Equipment equipment) throws Exception {
+        validator.validate(equipment);
         return storageEquipment.setEquipment(equipment);
     }
 

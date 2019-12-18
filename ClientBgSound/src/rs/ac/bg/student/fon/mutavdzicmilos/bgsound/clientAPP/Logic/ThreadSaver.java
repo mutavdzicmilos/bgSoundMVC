@@ -8,7 +8,6 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -29,7 +28,7 @@ public class ThreadSaver {
 
     private ThreadSaver() {
         hashmap = new HashMap<>();
-        checkThread();
+        
     }
 
     public Socket getSocket() {
@@ -38,6 +37,7 @@ public class ThreadSaver {
 
     public void setSocket(Socket socket) {
         this.socket = socket;
+        
     }
 
     public Map<String, Object> getHashmap() {
@@ -46,24 +46,6 @@ public class ThreadSaver {
 
     public void setHashmap(Map<String, Object> hashmap) {
         this.hashmap = hashmap;
-    }
-
-    private void checkThread() {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (socket != null || !socket.isClosed()) {
-                    try{
-                    }catch(Exception e){
-                        JOptionPane.showMessageDialog(null, "Disconnected from server!");
-                System.exit(0);
-                    }
-                    
-                }
-                
-            }
-        });
-        thread.start();
     }
 
 }

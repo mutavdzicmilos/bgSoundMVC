@@ -9,6 +9,8 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.Storag
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Worker;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.ServiceWorker;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageWorker;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.Validation;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.worker.WorkerValidator;
 
 /**
  *
@@ -17,14 +19,16 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageWork
 public class ServiceWorkerImpl implements ServiceWorker{
     
     StorageWorker storageWorker;
-
+    Validation validation;
     public ServiceWorkerImpl() {
         storageWorker=new StorageWorkerImpl();
+        validation= new WorkerValidator();
     }
     
     @Override
     public Worker checkWorker(Worker worker) throws Exception{
-            return storageWorker.checkWorker(worker);
+        validation.validate(worker);
+        return storageWorker.checkWorker(worker);
    
     }
     

@@ -22,20 +22,23 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class ModelFindClient {
-     public List<Client> getAllClients() throws Exception {
+
+    public List<Client> getAllClients() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
             ServerReceiveObject send = new ServerReceiveObject(Action.GETALLCLIENTS.ordinal(), null);
             stream.writeObject(send);
             stream.flush();
+            System.out.println("here1");
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+            System.out.println("here2");
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
             if (answer.getOperation() == Answer.DONE) {
-              return (List<Client>) answer.getData();
+                return (List<Client>) answer.getData();
             }
             throw new Exception(answer.getError());
-            
+
         } catch (IOException | ClassNotFoundException ex) {
             throw new Exception(ex.getMessage());
         }

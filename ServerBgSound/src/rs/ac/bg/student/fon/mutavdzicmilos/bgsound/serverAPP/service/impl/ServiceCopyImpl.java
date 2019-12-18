@@ -10,6 +10,9 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.ServiceCopy;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageCopy;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.StorageCopyImpl;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.Validation;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.copy.SaveCopyValidator;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.copy.UpdateCopyValidator;
 
 /**
  *
@@ -18,6 +21,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.Storag
 public class ServiceCopyImpl implements ServiceCopy {
 
     StorageCopy storageCopy;
+    private Validation validation;
 
     public ServiceCopyImpl() {
 
@@ -32,6 +36,8 @@ public class ServiceCopyImpl implements ServiceCopy {
 
     @Override
     public boolean setCopy(Copy copy) throws Exception {
+        validation = new SaveCopyValidator();
+        validation.validate(copy);
         return storageCopy.setCopy(copy);
     }
 
@@ -42,11 +48,15 @@ public class ServiceCopyImpl implements ServiceCopy {
 
     @Override
     public boolean setCopy(List<Copy> copies) throws Exception {
+        validation = new SaveCopyValidator();
+        validation.validate(copies);
         return storageCopy.setCopy(copies);
     }
 
     @Override
     public boolean changeCopy(Copy copy) throws Exception {
+        validation = new UpdateCopyValidator();
+        validation.validate(copy);
         return storageCopy.changeCopy(copy);
     }
 

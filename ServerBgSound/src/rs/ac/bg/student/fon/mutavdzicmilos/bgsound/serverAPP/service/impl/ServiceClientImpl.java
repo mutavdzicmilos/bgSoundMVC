@@ -11,6 +11,9 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.ServiceClie
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageClient;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.StorageClientImpl;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.Validation;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.client.DeleteClientValidator;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.client.SaveClientValidator;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.client.UpdateClientValidator;
 
 /**
  *
@@ -27,45 +30,43 @@ public class ServiceClientImpl implements ServiceClient {
 
     @Override
     public Client saveClient(Client client) throws Exception {
-            validation= new Validation() {
-                @Override
-                public void validate(Object o) throws Exception {
-                    //implement validation
-                            throw new Exception("Wrong jmbg");
-                }
-            };
-            validation.validate(client);
-            return storageClient.saveClient(client);
+        validation = new SaveClientValidator();
+        validation.validate(client);
+        return storageClient.saveClient(client);
     }
 
     @Override
     public List<Client> returnAllClients() throws Exception {
-            return storageClient.returnAllClients();
+        return storageClient.returnAllClients();
     }
 
     @Override
     public List<Client> returnByName(String name) throws Exception {
-            return storageClient.returnByName(name);
+        return storageClient.returnByName(name);
     }
 
     @Override
     public Client returnByID(int id) throws Exception {
-            return storageClient.returnByID(id);
+        return storageClient.returnByID(id);
     }
 
     @Override
     public boolean updateClient(Client client) throws Exception {
-            return storageClient.updateClient(client);
+        validation = new UpdateClientValidator();
+        validation.validate(client);
+        return storageClient.updateClient(client);
     }
 
     @Override
     public boolean deleteClient(Client client) throws Exception {
-            return storageClient.deleteClient(client);
+        validation = new DeleteClientValidator();
+        validation.validate(client);
+        return storageClient.deleteClient(client);
     }
 
     @Override
     public boolean deleteClient(int client) throws Exception {
-            return storageClient.deleteClient(client);
+        return storageClient.deleteClient(client);
 
     }
 }

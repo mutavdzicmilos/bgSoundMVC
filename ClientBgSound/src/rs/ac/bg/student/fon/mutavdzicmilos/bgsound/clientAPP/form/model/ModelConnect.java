@@ -21,27 +21,12 @@ public class ModelConnect {
         try {
             Socket socket = new Socket(ip, port);
             ThreadSaver.getInstance().setSocket(socket);
-            //checkSocket(socket);
+           
             JOptionPane.showMessageDialog(null, "Connection success!\nPlease now type your login information.");
 
         } catch (HeadlessException | IOException e) {
             throw new Exception("Unable to connect.");
         }
     }
-/*
-    public void checkSocket(Socket socket) {
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!socket.isClosed()) {
-                    
-                }
-                JOptionPane.showMessageDialog(null, "Connection with server failed.");
 
-                System.exit(0);
-            }
-        });
-        thread.start();
-
-    }*/
 }

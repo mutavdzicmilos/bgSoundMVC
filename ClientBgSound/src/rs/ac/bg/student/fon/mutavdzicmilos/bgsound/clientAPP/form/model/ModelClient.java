@@ -116,7 +116,6 @@ public class ModelClient {
             throw new Exception(e.getMessage());
         }
 
-
     }
 
     public boolean deleteClient(Client client) throws Exception {
@@ -128,10 +127,11 @@ public class ModelClient {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            if(answer.getOperation()==Answer.DONE)
-            return (boolean) answer.getData();
-              throw new Exception(answer.getError());
-        }  catch (IOException | ClassNotFoundException e) {
+            if (answer.getOperation() == Answer.DONE) {
+                return (boolean) answer.getData();
+            }
+            throw new Exception(answer.getError());
+        } catch (IOException | ClassNotFoundException e) {
             throw new Exception(e.getMessage());
         }
     }
