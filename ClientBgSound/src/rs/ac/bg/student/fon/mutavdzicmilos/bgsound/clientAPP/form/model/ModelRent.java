@@ -15,6 +15,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Action;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.utilities.Answer;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
@@ -24,7 +25,8 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
  * @author Milos <mm20160088@student.fon.bg.ac.rs>
  */
 public class ModelRent {
-      public List<Copy> getAllCopies() {
+
+    public List<Copy> getAllCopies() {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -33,14 +35,20 @@ public class ModelRent {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Copy>) answer.getData();
+            if (answer.getOperation() == Answer.DONE) {
+                return (List<Copy>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+
         } catch (Exception ex) {
+            ThreadSaver.getInstance().closeApp();
             Logger.getLogger(ModelRent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
-     public List<Client> getAllClients() {
+
+    public List<Client> getAllClients() {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -49,14 +57,20 @@ public class ModelRent {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (List<Client>) answer.getData();
+            if (answer.getOperation() == Answer.DONE) {
+                return (List<Client>) answer.getData();
+            }
+            throw new Exception(answer.getError());
+
         } catch (Exception ex) {
+            ThreadSaver.getInstance().closeApp();
             Logger.getLogger(ModelRent.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         return null;
     }
-     public boolean saveRents(List<Rent> rents) {
+
+    public boolean saveRents(List<Rent> rents) {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -65,8 +79,13 @@ public class ModelRent {
             stream.flush();
             ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
             ServerAnswerObject answer = (ServerAnswerObject) input.readObject();
-            return (boolean) answer.getData();
+            if (answer.getOperation() == Answer.DONE) {
+                return (boolean) answer.getData();
+            }
+            throw new Exception(answer.getError());
+
         } catch (Exception ex) {
+            ThreadSaver.getInstance().closeApp();
             Logger.getLogger(ModelRent.class.getName()).log(Level.SEVERE, null, ex);
         }
         return false;

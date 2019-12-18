@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.gui.form.ServerForm;
 
 /**
@@ -19,24 +20,30 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.gui.form.ServerForm
  * @author user
  */
 public class ServerThread extends Thread {
-
+    
     private ServerSocket serverSocket;
     private ServerForm form;
     private int port;
     private List<ClientThread> clients;
-
+    
     public ServerThread(int port, ServerForm form) {
         this.form = form;
         this.port = port;
         clients = new ArrayList<>();
     }
-
+    
     @Override
     public void run() {
         try {
             serverSocket = new ServerSocket(port);
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "Server already started");
+            System.exit(0);
+        }
+        try {
+            
             while (!isInterrupted() && serverSocket != null) {
-
+                
                 System.out.println("Waiting for client");
                 Socket socket = serverSocket.accept();
                 System.out.println("Connected");
@@ -48,7 +55,7 @@ public class ServerThread extends Thread {
             killClients();
         }
     }
-
+    
     public void killClients() {
         for (ClientThread c : clients) {
             try {
@@ -58,27 +65,27 @@ public class ServerThread extends Thread {
             }
         }
     }
-
+    
     public ServerSocket getServerSocket() {
         return serverSocket;
     }
-
+    
     public void setServerSocket(ServerSocket serverSocket) {
         this.serverSocket = serverSocket;
     }
-
+    
     public ServerForm getForm() {
         return form;
     }
-
+    
     public void setForm(ServerForm form) {
         this.form = form;
     }
-
+    
     public List<ClientThread> getClients() {
         return clients;
     }
-
+    
     public void setClients(List<ClientThread> clients) {
         this.clients = clients;
     }

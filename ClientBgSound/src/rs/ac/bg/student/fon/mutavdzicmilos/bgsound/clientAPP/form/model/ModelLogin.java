@@ -43,6 +43,7 @@ public class ModelLogin {
             }
             return (Worker) answer.getData();
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
 

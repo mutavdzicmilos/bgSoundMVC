@@ -10,8 +10,6 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic.ThreadSaver;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerAnswerObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.communication.ServerReceiveObject;
@@ -41,6 +39,7 @@ public class ModelEquipment {
             throw new Exception(answer.getError());
             
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
 
@@ -60,6 +59,7 @@ public class ModelEquipment {
             throw new Exception(answer.getError());
             
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
     }
@@ -79,6 +79,7 @@ public class ModelEquipment {
             throw new Exception(answer.getError());
             
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
     }
@@ -98,6 +99,7 @@ public class ModelEquipment {
             throw new Exception(answer.getError());
             
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
     }

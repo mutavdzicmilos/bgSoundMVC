@@ -153,6 +153,7 @@ public class StorageClientImpl implements StorageClient {
             preparedStatement.setString(4, client.getPhone());
             preparedStatement.setInt(5, client.getClientID());
             int count = preparedStatement.executeUpdate();
+            System.out.println("count");
             if (count > 0) {
                 connection.commit();
                 return true;

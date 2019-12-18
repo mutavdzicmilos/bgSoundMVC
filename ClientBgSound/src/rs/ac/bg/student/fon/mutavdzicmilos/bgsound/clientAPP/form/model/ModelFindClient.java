@@ -40,6 +40,7 @@ public class ModelFindClient {
             throw new Exception(answer.getError());
 
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
     }

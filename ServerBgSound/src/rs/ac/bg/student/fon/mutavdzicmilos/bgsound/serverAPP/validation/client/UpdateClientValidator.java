@@ -23,11 +23,11 @@ public class UpdateClientValidator implements Validation {
         if (c.getJMBG().length() != 13) {
             throw new Exception("Error validation,JMBG is 13 digit number");
         }
-        try {
+       /* try {
             Integer.parseInt(c.getJMBG());
         } catch (NumberFormatException ex) {
             throw new Exception("Error validation,JMBG is 13 digit number");
-        }
+        }*/
         if(c.getName()==null || c.getName().equals("")|| c.getName().length()<3)throw new Exception("Enter valid name");
         if(c.getSurname()==null || c.getSurname().equals("")|| c.getSurname().length()<3)throw new Exception("Enter valid surname");
            if(c.getPhone()==null || c.getPhone().equals("")|| c.getPhone().length()<7)throw new Exception("Enter valid phone");

@@ -184,11 +184,13 @@ public class ServerForm extends javax.swing.JFrame {
             System.out.println(port);
             serverThread = new ServerThread(port, this);
             serverThread.start();
+             fillConnected();
         } else {
+            JOptionPane.showMessageDialog(null, "Server is up already");
             System.out.println("Server is up already");
             return;
         }
-        fillConnected();
+       
 
     }//GEN-LAST:event_bConnectActionPerformed
 

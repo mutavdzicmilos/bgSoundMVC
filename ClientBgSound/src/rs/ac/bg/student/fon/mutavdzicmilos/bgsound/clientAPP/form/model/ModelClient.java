@@ -37,6 +37,7 @@ public class ModelClient {
             }
             throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException ex) {
+            ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
 
@@ -56,6 +57,7 @@ public class ModelClient {
             }
             throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
 
@@ -75,6 +77,7 @@ public class ModelClient {
             }
             throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
 
@@ -94,6 +97,7 @@ public class ModelClient {
             }
             throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException ex) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(ex.getMessage());
         }
     }
@@ -113,6 +117,7 @@ public class ModelClient {
             }
             throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException e) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(e.getMessage());
         }
 
@@ -132,6 +137,7 @@ public class ModelClient {
             }
             throw new Exception(answer.getError());
         } catch (IOException | ClassNotFoundException e) {
+             ThreadSaver.getInstance().closeApp();
             throw new Exception(e.getMessage());
         }
     }

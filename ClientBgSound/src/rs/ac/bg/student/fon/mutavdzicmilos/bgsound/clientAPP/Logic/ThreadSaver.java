@@ -8,6 +8,7 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.Logic;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -46,6 +47,10 @@ public class ThreadSaver {
 
     public void setHashmap(Map<String, Object> hashmap) {
         this.hashmap = hashmap;
+    }
+    public void closeApp(){
+        JOptionPane.showMessageDialog(null, "Error in connection.Check server and restart Application.");
+        System.exit(0);
     }
 
 }
