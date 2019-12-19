@@ -27,19 +27,18 @@ CREATE TABLE `client` (
   `JMBG` varchar(13) NOT NULL,
   `Phone` varchar(30) NOT NULL,
   PRIMARY KEY (`ClientID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 /*Data for the table `client` */
 
 insert  into `client`(`ClientID`,`Name`,`Surname`,`JMBG`,`Phone`) values 
-(2,'milos','Mutavdzic','1231231231231','123123123'),
+(2,'Milos','Mutavdzic','1231231231231','Mutavdzic'),
 (3,'Slavica','Mutavdzic','1231231235411','Mutavdzic'),
-(4,'Milica','Masala','1911997710089','Masal'),
-(5,'Nesa','Jovanovic','1251515123123','Cigan'),
+(4,'Milica','Masal','1911997710089','Masala'),
+(5,'Nesa','Jovanovic','1251515123123','asdfasdf'),
 (7,'Velja','Veljkovic','123123123123','Veljkovica'),
-(8,'Marko','Markovic','124354325','2345235235'),
-(9,'Petar','Markovic','124354325','2345235235'),
-(10,'Petar','Petrovicsw','242351234','Petrovic');
+(8,'Marko','Markovic','1243543252313','2345235235a'),
+(15,'Katarina','Miric','234234234234','23542352345');
 
 /*Table structure for table `copy` */
 
@@ -53,20 +52,19 @@ CREATE TABLE `copy` (
   `Defect` varchar(300) DEFAULT NULL,
   PRIMARY KEY (`EquipmentID`,`CopyID`),
   KEY `CopyID` (`CopyID`),
-  CONSTRAINT `copy_ibfk_1` FOREIGN KEY (`EquipmentID`) REFERENCES `equipment` (`EquipmentID`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8;
+  CONSTRAINT `copy_ibfk_1` FOREIGN KEY (`EquipmentID`) REFERENCES `equipment` (`EquipmentID`)
+) ENGINE=InnoDB AUTO_INCREMENT=114 DEFAULT CHARSET=utf8;
 
 /*Data for the table `copy` */
 
 insert  into `copy`(`EquipmentID`,`CopyID`,`Available`,`Working`,`Defect`) values 
-(1,6,1,2,'needs reparation'),
-(2,1,0,1,'false'),
-(3,7,1,1,''),
-(25,33,1,1,NULL),
-(25,34,1,1,NULL),
-(26,35,1,1,''),
-(26,36,1,1,NULL),
-(26,37,1,1,NULL);
+(64,106,1,0,'ad'),
+(64,113,1,1,''),
+(65,107,1,1,NULL),
+(65,108,1,1,NULL),
+(65,109,1,1,NULL),
+(65,110,1,1,''),
+(65,111,1,1,'');
 
 /*Table structure for table `equipment` */
 
@@ -78,28 +76,13 @@ CREATE TABLE `equipment` (
   `Connection` varchar(30) DEFAULT NULL,
   `Specification` varchar(300) NOT NULL,
   PRIMARY KEY (`EquipmentID`)
-) ENGINE=InnoDB AUTO_INCREMENT=33 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=66 DEFAULT CHARSET=utf8;
 
 /*Data for the table `equipment` */
 
 insert  into `equipment`(`EquipmentID`,`Name`,`Connection`,`Specification`) values 
-(1,'Das sub','Speakon','400w'),
-(2,'Beam 7r','DMX','Uses for large areas.'),
-(3,'MARTIN WIZZARD','DMX/MUSIC AUTOMATIC','250W'),
-(4,'MARTIN WIZZARD','DMX/MUSIC AUTOMATIC','250W'),
-(5,'Das bass','Speakon','500w'),
-(6,'Kit 1000','DMX-w/o mass','1000w three systems '),
-(7,'JBL Go','Bluetooth','5 w Speaker'),
-(8,'Das bass','speakon','500W'),
-(9,'Speakon 30m','speakon speakon','30m cable speakon speakon'),
-(25,'xfgn','gchm','sdfh'),
-(26,'wrg','sdgf','sdg'),
-(27,'cable','sdf','123'),
-(28,'cable','sdf','123'),
-(29,'cable','sdf','123'),
-(30,'cable','sdf','123'),
-(31,'cable','sdf','123'),
-(32,'cable','sdf','123');
+(64,'d','d','d'),
+(65,'a','a','a');
 
 /*Table structure for table `rent` */
 
@@ -114,18 +97,15 @@ CREATE TABLE `rent` (
   `DateTo` date DEFAULT NULL,
   `WorkerID` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`RentID`),
+  KEY `rent_ibfk_1` (`ClientID`),
   KEY `rent_ibfk_2` (`EquipmentID`,`CopyID`),
   KEY `rent_ibfk_3` (`WorkerID`),
-  KEY `rent_ibfk_1` (`ClientID`),
-  CONSTRAINT `rent_ibfk_1` FOREIGN KEY (`ClientID`) REFERENCES `client` (`ClientID`) ON DELETE CASCADE ON UPDATE RESTRICT,
-  CONSTRAINT `rent_ibfk_2` FOREIGN KEY (`EquipmentID`, `CopyID`) REFERENCES `copy` (`EquipmentID`, `CopyID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  CONSTRAINT `rent_ibfk_3` FOREIGN KEY (`WorkerID`) REFERENCES `worker` (`WorkerID`) ON DELETE RESTRICT ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+  CONSTRAINT `rent_ibfk_1` FOREIGN KEY (`ClientID`) REFERENCES `client` (`ClientID`),
+  CONSTRAINT `rent_ibfk_2` FOREIGN KEY (`EquipmentID`, `CopyID`) REFERENCES `copy` (`EquipmentID`, `CopyID`),
+  CONSTRAINT `rent_ibfk_3` FOREIGN KEY (`WorkerID`) REFERENCES `worker` (`WorkerID`)
+) ENGINE=InnoDB AUTO_INCREMENT=58 DEFAULT CHARSET=utf8;
 
 /*Data for the table `rent` */
-
-insert  into `rent`(`RentID`,`ClientID`,`EquipmentID`,`CopyID`,`DateFrom`,`DateTo`,`WorkerID`) values 
-(3,2,2,1,'2019-11-11',NULL,1);
 
 /*Table structure for table `worker` */
 
@@ -139,13 +119,14 @@ CREATE TABLE `worker` (
   `Username` varchar(30) NOT NULL,
   `Password` varchar(300) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   PRIMARY KEY (`WorkerID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 /*Data for the table `worker` */
 
 insert  into `worker`(`WorkerID`,`Name`,`Surname`,`JMBG`,`Username`,`Password`) values 
-(1,'Milos','Mutavdzic','0408997710052','mutavdzicmilos','bed4efa1d4fdbd954bd3705d6a2a78270ec9a52ecfbfb010c61862af5c76af1761ffeb1aef6aca1bf5d02b3781aa854fabd2b69c790de74e17ecfec3cb6ac4bf'),
-(3,'Stefan','Mutavdzic','0508995710029','mutavdzicstefan','1');
+(1,'Milos','Mutavdzic','0408997710052','mutavdzicmilos','12bf049c116d22e7d9e6e78824d994f4eac8de6e1bfbc0eef5cd16fbf79c7837d52faefb123ba19aa64c3f3047afd9a1192a868cd598c71f4925f5a8e6dbdd99'),
+(2,'Stefan','Mutavdzic','0508995710029','mutavdzicstefan','bed4efa1d4fdbd954bd3705d6a2a78270ec9a52ecfbfb010c61862af5c76af1761ffeb1aef6aca1bf5d02b3781aa854fabd2b69c790de74e17ecfec3cb6ac4bf'),
+(3,'Dusan','Savic','-','savicdusan','a0198f69d510a15c6ffa1c2fdf6d7f47c52cfdc0cd984284088e49f5d26a32cf076e7ae6c82a9264fff3998a5a9632618b64d3c7eecb63b0ebda52fcbe681b68');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
