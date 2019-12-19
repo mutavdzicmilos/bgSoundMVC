@@ -11,6 +11,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.ServiceEqui
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.StorageEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.storage.impl.StorageEquipmentImpl;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.Validation;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.validation.equipment.SaveEquipmentValidator;
 
 /**
  *
@@ -22,6 +23,7 @@ public class ServiceEquipmentImpl implements ServiceEquipment {
     private Validation validator;
     public ServiceEquipmentImpl() {
         this.storageEquipment = new StorageEquipmentImpl();
+        validator= new SaveEquipmentValidator();
     }
 
     @Override

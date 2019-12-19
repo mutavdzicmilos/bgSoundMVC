@@ -28,5 +28,6 @@ public enum Action {
     UPDATECOPY,
     GETRENTBYID,
     DISCHARGEALL,
-    SAVERENTS;
+    SAVERENTS,
+    SAVECOPY;
 }

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
 
 /**
  *
@@ -57,6 +58,7 @@ public class FEquipment extends javax.swing.JFrame {
         bReset = new javax.swing.JButton();
         bCancel = new javax.swing.JButton();
         bSaveEq = new javax.swing.JButton();
+        bAddCopy = new javax.swing.JButton();
         jCopyPanel = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         cCopyChooser = new javax.swing.JComboBox<>();
@@ -121,6 +123,8 @@ public class FEquipment extends javax.swing.JFrame {
 
         bSaveEq.setText("Save Equipment");
 
+        bAddCopy.setText("Add Copy");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -160,7 +164,9 @@ public class FEquipment extends javax.swing.JFrame {
                 .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bSaveEq, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(57, 57, 57))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(bAddCopy)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -192,7 +198,8 @@ public class FEquipment extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bCancel, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(bReset, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bSaveEq, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(bSaveEq, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bAddCopy, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -202,7 +209,6 @@ public class FEquipment extends javax.swing.JFrame {
         jLabel8.setText("Copy:");
 
         cCopyChooser.setFont(new java.awt.Font("sansserif", 0, 24)); // NOI18N
-        cCopyChooser.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Available", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("sansserif", 1, 14))); // NOI18N
 
@@ -379,12 +385,21 @@ public class FEquipment extends javax.swing.JFrame {
         return buttonGroup2;
     }
 
+    public void addcCopyStateChanged(java.awt.event.ItemListener e) {
+        cCopyChooser.addItemListener(e);
+
+    }
+
     public void addtDefectFocusGained(java.awt.event.FocusListener e) {
         tDefect.addFocusListener(e);
     }
 
     public void addRWtrueActionListener(java.awt.event.ActionListener e) {
         rWTrue.addActionListener(e);
+    }
+
+    public void addAddCopyActionListener(java.awt.event.ActionListener e) {
+        bAddCopy.addActionListener(e);
     }
 
     public void addFindActionListener(java.awt.event.ActionListener e) {
@@ -459,6 +474,7 @@ public class FEquipment extends javax.swing.JFrame {
      * @param args the command line arguments
      */
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton bAddCopy;
     private javax.swing.JButton bCancel;
     private javax.swing.JButton bDeleteCopy;
     private javax.swing.JButton bEnableChanges;
@@ -468,7 +484,7 @@ public class FEquipment extends javax.swing.JFrame {
     private javax.swing.JButton bUpdateCopy;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.ButtonGroup buttonGroup2;
-    private javax.swing.JComboBox<String> cCopyChooser;
+    private javax.swing.JComboBox<rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy> cCopyChooser;
     private javax.swing.JPanel jCopyPanel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -495,7 +511,7 @@ public class FEquipment extends javax.swing.JFrame {
     private javax.swing.JTextArea tSpecification;
     // End of variables declaration//GEN-END:variables
 
-    public javax.swing.JComboBox<String> getcCopyChooser() {
+    public javax.swing.JComboBox<Copy> getcCopyChooser() {
         return cCopyChooser;
     }
 
@@ -545,5 +561,9 @@ public class FEquipment extends javax.swing.JFrame {
 
     public javax.swing.JLabel getjLabel6() {
         return jLabel6;
+    }
+
+    public javax.swing.JButton getbAddCopy() {
+        return bAddCopy;
     }
 }

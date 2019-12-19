@@ -12,15 +12,17 @@ import java.util.Objects;
  *
  * @author FON
  */
-public class Copy implements Serializable{
+public class Copy implements Serializable {
+
     private Integer copyID;
     private Boolean working;
     private Boolean available;
     private Equipment equipment;
     private String defect;
 //prototype
-    public Copy(Integer copyID,Integer equipmentID) {
-        this.equipment= new Equipment(equipmentID);
+
+    public Copy(Integer copyID, Integer equipmentID) {
+        this.equipment = new Equipment(equipmentID);
         this.copyID = copyID;
     }
 
@@ -37,7 +39,7 @@ public class Copy implements Serializable{
 
     @Override
     public String toString() {
-        return "Copy{" + "copyID=" + copyID + ", working=" + working + ", available=" + available + ", equipment=" + equipment + ", defect=" + defect + '}';
+        return "Copy " + copyID;
     }
 
     @Override
@@ -60,8 +62,11 @@ public class Copy implements Serializable{
         }
         return true;
     }
-    
+
     public Copy() {
+        this.working = true;
+        this.available = true;
+        this.defect = "";
     }
 
     public Copy(Integer copyID, Boolean working, Boolean available, Equipment equipment, String defect) {
@@ -111,5 +116,5 @@ public class Copy implements Serializable{
     public void setEquipment(Equipment equipment) {
         this.equipment = equipment;
     }
-    
+
 }

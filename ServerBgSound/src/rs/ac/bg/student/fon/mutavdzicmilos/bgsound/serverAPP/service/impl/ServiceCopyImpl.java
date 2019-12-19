@@ -35,7 +35,7 @@ public class ServiceCopyImpl implements ServiceCopy {
     }
 
     @Override
-    public boolean setCopy(Copy copy) throws Exception {
+    public Copy setCopy(Copy copy) throws Exception {
         validation = new SaveCopyValidator();
         validation.validate(copy);
         return storageCopy.setCopy(copy);

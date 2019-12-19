@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -44,11 +46,66 @@ public class ControllerEquipment {
         view.addtDefectFocusGained(new DefectListener());
         view.addRWtrueActionListener(new RWActionListener());
         view.addFindActionListener(new FindActionListener());
-
+        view.addAddCopyActionListener(new AddCopyListener());
+        view.addcCopyStateChanged(new CopyStateChanged());
     }
-    private ControllerEquipment returnThis(){
+
+    private ControllerEquipment returnThis() {
         return this;
     }
+
+    private class CopyStateChanged implements ItemListener {
+
+        public CopyStateChanged() {
+        }
+
+        @Override
+        public void itemStateChanged(ItemEvent e) {
+            if(view.getcCopyChooser().getSelectedIndex()>=0){
+            Copy c= (Copy)view.getcCopyChooser().getSelectedItem();
+            if(c.getAvailable()){
+                view.getrATrue().setSelected(true);
+                view.getrAFalse().setSelected(false);
+            }else{
+                   view.getrATrue().setSelected(false);
+                view.getrAFalse().setSelected(true);
+            }
+             if(c.getWorking()){
+                view.getrWTrue().setSelected(true);
+                view.getrWFalse().setSelected(false);
+            }else{
+                   view.getrWTrue().setSelected(false);
+                view.getrWFalse().setSelected(true);
+            }
+            view.gettDefect().setText(c.getDefect());
+            }
+        }
+    }
+
+    private class AddCopyListener implements ActionListener {
+
+        public AddCopyListener() {
+
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            try {
+                int id = Integer.parseInt(view.gettID().getText());
+                System.out.println("here1");
+                Copy copy = new Copy();
+                copy.setEquipment(new Equipment(id));
+                copy=model.addCopy(copy);
+                JOptionPane.showMessageDialog(null, "Success");
+                view.getcCopyChooser().addItem(copy);
+                view.getjCopyPanel().setVisible(true);
+
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
     private class FindActionListener implements ActionListener {
 
         @Override
@@ -56,7 +113,7 @@ public class ControllerEquipment {
             new ControllerFindEq(returnThis());
         }
     }
-    
+
     private class RWActionListener implements ActionListener {
 
         @Override
@@ -97,17 +154,17 @@ public class ControllerEquipment {
                     return;
                 }
                 int eID = Integer.parseInt(view.gettID().getText());
-                int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
-                Copy c = new Copy(cID, eID);
-               model.deleteCopy(c);
+                Copy c = (Copy) view.getcCopyChooser().getSelectedItem();
+                c.setEquipment(new Equipment(eID));
+                model.deleteCopy(c);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().removeItemAt(view.getcCopyChooser().getSelectedIndex());
                 if (view.getcCopyChooser().getItemCount() == 0) {
                     view.getjCopyPanel().setVisible(false);
                 }
             } catch (Exception ex) {
-               JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }
@@ -121,9 +178,11 @@ public class ControllerEquipment {
                     return;
                 }
                 int eID = Integer.parseInt(view.gettID().getText());
-                int cID = Integer.parseInt(view.getcCopyChooser().getSelectedItem().toString());
-                
-                Copy c = new Copy(cID, view.getrWTrue().isSelected(), view.getrATrue().isSelected(), new Equipment(eID), view.gettDefect().getText().trim());
+                Copy c = (Copy) view.getcCopyChooser().getSelectedItem();
+                c.setWorking(view.getrWTrue().isSelected());
+                c.setAvailable(view.getrATrue().isSelected());
+                c.setEquipment(new Equipment(eID));
+                c.setDefect(view.gettDefect().getText().trim());
                 model.updateCopy(c);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().removeItemAt(view.getcCopyChooser().getSelectedIndex());
@@ -131,8 +190,8 @@ public class ControllerEquipment {
                     view.getjCopyPanel().setVisible(false);
                 }
             } catch (Exception ex) {
-  JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-               
+                JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
             }
         }
 
@@ -156,7 +215,7 @@ public class ControllerEquipment {
                 String specification = view.gettSpecification().getText().trim();
                 String connection = view.gettConnection().getText().trim();
                 int copiesNo = Integer.valueOf(view.gettNumber().getValue().toString());
-                
+
                 if (name.equals("") || specification.equals("") || connection.equals("")) {
                     JOptionPane.showMessageDialog(null, "Error input.Check values.", "Error", JOptionPane.ERROR_MESSAGE);
                     return;
@@ -164,14 +223,14 @@ public class ControllerEquipment {
                 List<Copy> copies = new ArrayList<>();
                 for (int i = 0; i < copiesNo; i++) {
                     copies.add(new Copy(i, true, true, null, null));
-                    
+
                 }
                 Equipment e = model.saveEquipment(new Equipment(connection, specification, name, copies));
-                
+
                 JOptionPane.showMessageDialog(null, "Saved sucessfully");
                 set(e);
             } catch (Exception ex1) {
-JOptionPane.showMessageDialog(null, ex1.getMessage());
+                JOptionPane.showMessageDialog(null, ex1.getMessage());
             }
 
         }
@@ -182,6 +241,7 @@ JOptionPane.showMessageDialog(null, ex1.getMessage());
         if (e == null) {
             return;
         }
+        view.getbAddCopy().setVisible(true);
         view.getbSaveEq().setVisible(false);
         view.getbReset().setVisible(false);
         view.getbCancel().setVisible(false);
@@ -205,7 +265,7 @@ JOptionPane.showMessageDialog(null, ex1.getMessage());
             view.getbDeleteCopy().setVisible(false);
             view.getbUpdateCopy().setVisible(false);
             for (Copy c : e.getCopies()) {
-                view.getcCopyChooser().addItem(c.getCopyID().toString());
+                view.getcCopyChooser().addItem(c);
 
             }
         }
@@ -240,6 +300,7 @@ JOptionPane.showMessageDialog(null, ex1.getMessage());
 
     public void fillForm(Mode mode) {
         if (mode == Mode.Mode_Add) {
+            view.getbAddCopy().setVisible(false);
             view.gettConnection().setEditable(true);
             view.gettDefect().setEditable(true);
             view.getbFind().setVisible(false);
@@ -253,6 +314,7 @@ JOptionPane.showMessageDialog(null, ex1.getMessage());
             return;
         }
         if (mode == Mode.Mode_View) {
+            view.getbAddCopy().setVisible(false);
             view.gettConnection().setEditable(false);
             view.gettDefect().setEditable(false);
             view.getbFind().setVisible(true);
@@ -272,6 +334,7 @@ JOptionPane.showMessageDialog(null, ex1.getMessage());
             return;
         }
         if (mode == Mode.Mode_Update) {
+            view.getbAddCopy().setVisible(false);
             view.gettConnection().setEditable(false);
             view.gettDefect().setEditable(true);
             view.gettDefect().setEnabled(true);

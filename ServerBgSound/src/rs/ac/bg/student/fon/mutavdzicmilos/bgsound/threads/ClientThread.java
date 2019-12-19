@@ -285,6 +285,18 @@ class ClientThread extends Thread {
                         }
                         break;
                     }
+                    case 19: {
+                        Copy copy = (Copy) receive.getObject();
+                        try {
+                            Copy help = ServerController.getInstance().getServiceCopy().setCopy(copy);
+                            answer.setOperation(Answer.DONE);
+                            answer.setData(help);
+                        } catch (Exception e) {
+                            answer.setOperation(Answer.ERROR);
+                            answer.setError(e);
+                        }
+                        break;
+                    }
                 }
 
                 ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());

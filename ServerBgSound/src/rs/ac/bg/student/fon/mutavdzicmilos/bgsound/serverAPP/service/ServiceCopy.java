@@ -14,7 +14,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
  */
 public interface ServiceCopy {
     public List<Copy> getAll() throws Exception;
-    public boolean setCopy(Copy copy)throws Exception;
+    public Copy setCopy(Copy copy)throws Exception;
     public Copy getCopy(Copy copy)throws Exception;
     public boolean setCopy(List<Copy> copies)throws Exception;
     public boolean changeCopy(Copy copy)throws Exception;

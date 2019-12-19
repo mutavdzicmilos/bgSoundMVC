@@ -53,9 +53,9 @@ public class StorageCopyImpl implements StorageCopy {
     }
 
     @Override
-    public boolean setCopy(Copy copy) throws Exception {
+    public Copy setCopy(Copy copy) throws Exception {
         if (copy == null || copy.getEquipment() == null) {
-            return false;
+            return null;
         }
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
@@ -63,20 +63,20 @@ public class StorageCopyImpl implements StorageCopy {
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             connection.setAutoCommit(false);
             preparedStatement.setString(1, copy.getEquipment().getEquipmentID().toString());
-            preparedStatement.setString(2, copy.getWorking().toString());
-            preparedStatement.setString(3, copy.getAvailable().toString());
+            preparedStatement.setBoolean(2, copy.getWorking());
+            preparedStatement.setBoolean(3, copy.getAvailable());
             preparedStatement.setString(4, copy.getDefect());
             int count = preparedStatement.executeUpdate();
-            preparedStatement.close();
+          
             if (count > 0) {
                 ResultSet rs = preparedStatement.getGeneratedKeys();
                 if (rs.next()) {
                     copy.setCopyID(rs.getInt(1));
 
                 }
-
+                 preparedStatement.close();
                 connection.commit();
-                return true;
+                return copy;
 
             } else {
                 connection.rollback();
@@ -126,7 +126,7 @@ public class StorageCopyImpl implements StorageCopy {
     public boolean setCopy(List<Copy> copies) throws Exception {
         boolean save = true;
         for (Copy copy : copies) {
-            save = save && setCopy(copy);
+            save = save && (setCopy(copy)!=null);
 
         }
 
