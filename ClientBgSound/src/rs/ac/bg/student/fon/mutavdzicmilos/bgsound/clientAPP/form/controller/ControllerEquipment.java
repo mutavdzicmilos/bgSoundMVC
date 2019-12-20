@@ -192,7 +192,6 @@ public class ControllerEquipment {
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                view.dispose();
             }
         }
 
