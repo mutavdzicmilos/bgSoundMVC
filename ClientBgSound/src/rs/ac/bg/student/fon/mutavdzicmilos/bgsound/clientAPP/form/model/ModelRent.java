@@ -5,6 +5,7 @@
  */
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.form.model;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
@@ -26,7 +27,7 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Rent;
  */
 public class ModelRent {
 
-    public List<Copy> getAllCopies() {
+    public List<Copy> getAllCopies() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -40,7 +41,7 @@ public class ModelRent {
             }
             throw new Exception(answer.getError());
 
-        } catch (Exception ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ThreadSaver.getInstance().closeApp();
             Logger.getLogger(ModelRent.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -48,7 +49,7 @@ public class ModelRent {
         return null;
     }
 
-    public List<Client> getAllClients() {
+    public List<Client> getAllClients() throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -62,7 +63,7 @@ public class ModelRent {
             }
             throw new Exception(answer.getError());
 
-        } catch (Exception ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ThreadSaver.getInstance().closeApp();
             Logger.getLogger(ModelRent.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -70,7 +71,7 @@ public class ModelRent {
         return null;
     }
 
-    public boolean saveRents(List<Rent> rents) {
+    public boolean saveRents(List<Rent> rents) throws Exception {
         Socket socket = ThreadSaver.getInstance().getSocket();
         try {
             ObjectOutputStream stream = new ObjectOutputStream(socket.getOutputStream());
@@ -84,7 +85,7 @@ public class ModelRent {
             }
             throw new Exception(answer.getError());
 
-        } catch (Exception ex) {
+        } catch (IOException | ClassNotFoundException ex) {
             ThreadSaver.getInstance().closeApp();
             Logger.getLogger(ModelRent.class.getName()).log(Level.SEVERE, null, ex);
         }

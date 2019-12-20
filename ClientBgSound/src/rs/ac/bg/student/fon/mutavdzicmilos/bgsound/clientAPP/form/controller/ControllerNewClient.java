@@ -115,6 +115,7 @@ public class ControllerNewClient {
                 view.dispose();
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "PROBLEM", JOptionPane.ERROR_MESSAGE);
+                view.dispose();
             }
 
         }
@@ -161,6 +162,7 @@ public class ControllerNewClient {
 
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "PROBLEM", JOptionPane.ERROR_MESSAGE);
+                view.dispose();
             }
 
         }

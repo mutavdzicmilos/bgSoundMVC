@@ -61,23 +61,23 @@ public class ControllerEquipment {
 
         @Override
         public void itemStateChanged(ItemEvent e) {
-            if(view.getcCopyChooser().getSelectedIndex()>=0){
-            Copy c= (Copy)view.getcCopyChooser().getSelectedItem();
-            if(c.getAvailable()){
-                view.getrATrue().setSelected(true);
-                view.getrAFalse().setSelected(false);
-            }else{
-                   view.getrATrue().setSelected(false);
-                view.getrAFalse().setSelected(true);
-            }
-             if(c.getWorking()){
-                view.getrWTrue().setSelected(true);
-                view.getrWFalse().setSelected(false);
-            }else{
-                   view.getrWTrue().setSelected(false);
-                view.getrWFalse().setSelected(true);
-            }
-            view.gettDefect().setText(c.getDefect());
+            if (view.getcCopyChooser().getSelectedIndex() >= 0) {
+                Copy c = (Copy) view.getcCopyChooser().getSelectedItem();
+                if (c.getAvailable()) {
+                    view.getrATrue().setSelected(true);
+                    view.getrAFalse().setSelected(false);
+                } else {
+                    view.getrATrue().setSelected(false);
+                    view.getrAFalse().setSelected(true);
+                }
+                if (c.getWorking()) {
+                    view.getrWTrue().setSelected(true);
+                    view.getrWFalse().setSelected(false);
+                } else {
+                    view.getrWTrue().setSelected(false);
+                    view.getrWFalse().setSelected(true);
+                }
+                view.gettDefect().setText(c.getDefect());
             }
         }
     }
@@ -95,7 +95,7 @@ public class ControllerEquipment {
                 System.out.println("here1");
                 Copy copy = new Copy();
                 copy.setEquipment(new Equipment(id));
-                copy=model.addCopy(copy);
+                copy = model.addCopy(copy);
                 JOptionPane.showMessageDialog(null, "Success");
                 view.getcCopyChooser().addItem(copy);
                 view.getjCopyPanel().setVisible(true);
@@ -164,6 +164,7 @@ public class ControllerEquipment {
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                view.dispose();
             }
         }
 
@@ -191,7 +192,7 @@ public class ControllerEquipment {
                 }
             } catch (Exception ex) {
                 JOptionPane.showMessageDialog(null, ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-
+                view.dispose();
             }
         }
 
@@ -265,7 +266,9 @@ public class ControllerEquipment {
             view.getbDeleteCopy().setVisible(false);
             view.getbUpdateCopy().setVisible(false);
             for (Copy c : e.getCopies()) {
-                view.getcCopyChooser().addItem(c);
+                if (c.getAvailable()) {
+                    view.getcCopyChooser().addItem(c);
+                }
 
             }
         }

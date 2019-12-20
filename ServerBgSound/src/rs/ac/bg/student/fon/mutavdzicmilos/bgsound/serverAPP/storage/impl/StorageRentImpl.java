@@ -34,7 +34,7 @@ public class StorageRentImpl implements StorageRent {
         Connection connection = ConnectionFactory.getInstance().getConnection();
         try {
 
-            String query = "update rent r,copy c set r.dateTo=?,r.workerID=?,c.available=? where rentID=?";
+            String query = "update rent r,copy c set r.dateTo=?,r.workerID=?,c.available=? where r.rentID=? and r.copyid=c.copyid and c.available=false";
             PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS);
             connection.setAutoCommit(false);
             SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy");
@@ -44,7 +44,11 @@ public class StorageRentImpl implements StorageRent {
                 preparedStatement.setBoolean(3, true);
                 preparedStatement.setInt(4, re.getRentID());
                 preparedStatement.setInt(2, worker.getWorkerID());
-               int br= preparedStatement.executeUpdate();
+                int br = preparedStatement.executeUpdate();
+                if (br == 0) {
+                    connection.rollback();
+                    throw new Exception("Error in saving rents");
+                }
                 System.out.println(br);
             }
             connection.commit();
@@ -61,7 +65,7 @@ public class StorageRentImpl implements StorageRent {
         try {
             Connection connection = ConnectionFactory.getInstance().getConnection();
             String query = "INSERT INTO rent (ClientID,EquipmentID,CopyID,DateFRom,DateTo,WorkerID) VALUES(?,?,?,?,?,?)";
-            String query2 = "UPDATE COPY SET AVAILABLE=FALSE WHERE EQUIPMENTID=? AND COPYID=?";
+            String query2 = "UPDATE COPY SET AVAILABLE=FALSE WHERE EQUIPMENTID=? AND COPYID=? AND AVAILABLE=TRUE";
             for (Rent r : rents) {
                 PreparedStatement ps = connection.prepareStatement(query);
                 ps.setInt(1, r.getClient().getClientID());
@@ -177,7 +181,6 @@ public class StorageRentImpl implements StorageRent {
         } catch (SQLException ex) {
             throw new Exception(ex.getMessage());
         }
-
 
     }
 

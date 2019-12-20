@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.ListSelectionModel;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.clientAPP.TableModel.CopyTableModel;
@@ -44,26 +46,29 @@ public class ControllerRent {
     }
 
     private void fillform() {
-        List<Client> clients = model.getAllClients();
-        for (Client c : clients) {
-            view.getcClientChoose().addItem(c);
+        try {
+            List<Client> clients = model.getAllClients();
+            for (Client c : clients) {
+                view.getcClientChoose().addItem(c);
+            }
+            view.getcClientChoose().setSelectedIndex(-1);
+            view.gettChoose().setModel(new CopyTableModel(model.getAllCopies()));
+            view.gettRent().setModel(new CopyTableModel(null));
+            view.gettChoose().getColumnModel().getColumn(0).setPreferredWidth(30);
+            view.gettChoose().getColumnModel().getColumn(4).setPreferredWidth(30);
+            view.gettRent().getColumnModel().getColumn(0).setPreferredWidth(30);
+            view.gettRent().getColumnModel().getColumn(4).setPreferredWidth(30);
+            view.gettRent().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+            view.gettChoose().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, ex.getLocalizedMessage());
         }
-        view.getcClientChoose().setSelectedIndex(-1);
-        view.gettChoose().setModel(new CopyTableModel(model.getAllCopies()));
-        view.gettRent().setModel(new CopyTableModel(null));
-        view.gettChoose().getColumnModel().getColumn(0).setPreferredWidth(30);
-        view.gettChoose().getColumnModel().getColumn(4).setPreferredWidth(30);
-        view.gettRent().getColumnModel().getColumn(0).setPreferredWidth(30);
-        view.gettRent().getColumnModel().getColumn(4).setPreferredWidth(30);
-        view.gettRent().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        view.gettChoose().setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
     }
 
     private ControllerRent returnCont() {
         return this;
     }
-
 
     private class SetActionListener implements ActionListener {
 
@@ -74,8 +79,6 @@ public class ControllerRent {
     }
 
     private class RemoveListener implements ActionListener {
-
-       
 
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -98,30 +101,33 @@ public class ControllerRent {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (view.getcClientChoose().getSelectedIndex() == -1) {
-                JOptionPane.showMessageDialog(null, "Please choose client");
-                return;
-            }
-            Client client = (Client) view.getcClientChoose().getSelectedItem();
-            List<Copy> copies = ((CopyTableModel) view.gettRent().getModel()).getAll();
-            if (copies == null || copies.size() == 0) {
-                JOptionPane.showMessageDialog(null, "Please choose copies to rent");
-                return;
-            }
-            List<Rent> rents = new ArrayList<>();
-            for (Copy c : copies) {
-                Rent r = new Rent();
-                r.setClient(client);
-                r.setCopy(c);
-                r.setDateFrom(new Date());
-                rents.add(r);
-            }
-            if (model.saveRents(rents)) {
+            try {
+                if (view.getcClientChoose().getSelectedIndex() == -1) {
+                    JOptionPane.showMessageDialog(null, "Please choose client");
+                    return;
+                }
+                Client client = (Client) view.getcClientChoose().getSelectedItem();
+                List<Copy> copies = ((CopyTableModel) view.gettRent().getModel()).getAll();
+                if (copies == null || copies.size() == 0) {
+                    JOptionPane.showMessageDialog(null, "Please choose copies to rent");
+                    return;
+                }
+                List<Rent> rents = new ArrayList<>();
+                for (Copy c : copies) {
+                    Rent r = new Rent();
+                    r.setClient(client);
+                    r.setCopy(c);
+                    r.setDateFrom(new Date());
+                    rents.add(r);
+                }
+                model.saveRents(rents);
                 JOptionPane.showMessageDialog(null, "Success");
                 fillform();
                 return;
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(null, ex.getLocalizedMessage());
+                fillform();
             }
-            JOptionPane.showMessageDialog(null, "Fail");
         }
     }
 
