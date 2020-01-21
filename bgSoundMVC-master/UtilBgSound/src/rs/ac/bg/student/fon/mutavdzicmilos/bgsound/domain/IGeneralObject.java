@@ -6,9 +6,10 @@ package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain;
 
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.util.List;
 
-// Operacije navedenog interfejsa je potrebno da implementira svaka od domenskih klasa,
-// koja zeli da joj bude omogucena komunikacija sa Database broker klasom.
+
 public interface IGeneralObject extends Serializable {
 
     public String getTableName();
@@ -18,5 +19,10 @@ public interface IGeneralObject extends Serializable {
     public String getInsertValues();
 
     public void setId(int id);
-
+    
+    public IGeneralObject getObject(ResultSet rs);
+    
+    public String getObjectCase();
+    public List<IGeneralObject> getList(ResultSet rs);
+    
 }

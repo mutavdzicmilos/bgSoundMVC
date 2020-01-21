@@ -33,7 +33,6 @@ class ClientThread extends Thread {
     Worker worker;
     ServerThread serverThread;
     Socket socket;
-    List<Worker> workers = new ArrayList<>();
 
     ClientThread(ServerThread aThis, Socket socket) {
         this.serverThread = aThis;
@@ -74,7 +73,8 @@ class ClientThread extends Thread {
                     case 1: {
                         List<Equipment> clients;
                         try {
-                            clients = ServerController.getInstance().getServiceEquipment().getAll();
+                            clients = ServerController.getInstance().selectAllEquipment(new Equipment());
+                          //  clients = ServerController.getInstance().getServiceEquipment().getAll();
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
                         } catch (Exception ex) {
@@ -87,7 +87,9 @@ class ClientThread extends Thread {
                     case 2: {
                         List<Client> clients;
                         try {
-                            clients = ServerController.getInstance().getServiceClient().returnAllClients();
+                            //   clients = ServerController.getInstance().getServiceClient().returnAllClients();
+                            clients = ServerController.getInstance().selectAllClient(new Client());
+
                             answer.setOperation(Answer.DONE);
                             answer.setData(clients);
                         } catch (Exception ex) {
@@ -101,6 +103,7 @@ class ClientThread extends Thread {
 
                         List<Copy> copies;
                         try {
+
                             copies = ServerController.getInstance().getServiceCopy().getAll();
                             answer.setOperation(Answer.DONE);
                             answer.setData(copies);
@@ -127,8 +130,8 @@ class ClientThread extends Thread {
                         Equipment e = (Equipment) receive.getObject();
                         Equipment help;
                         try {
-                            help=ServerController.getInstance().saveEquipment(e);
-  // help = ServerController.getInstance().getServiceEquipment().setEquipment(e);
+                            help = ServerController.getInstance().saveEquipment(e);
+                            // help = ServerController.getInstance().getServiceEquipment().setEquipment(e);
                             answer.setData(help);
                             answer.setOperation(Answer.DONE);
                         } catch (Exception ex) {
@@ -303,7 +306,7 @@ class ClientThread extends Thread {
                         }
                         break;
                     }
-                     case 20: {
+                    case 20: {
 
                         int copy = (int) receive.getObject();
                         try {

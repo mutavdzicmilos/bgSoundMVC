@@ -6,18 +6,24 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author FON
  */
-public class Equipment implements Serializable,IGeneralObject {
+public class Equipment implements Serializable, IGeneralObject {
+
     //prototype
     public Equipment(Integer equipmentID) {
         this.equipmentID = equipmentID;
     }
-   
+
     private Integer equipmentID;
     private String connection;
     private String specification;
@@ -79,13 +85,13 @@ public class Equipment implements Serializable,IGeneralObject {
     }
 
     public List<Copy> getCopies() {
-      /*  if(copies==null)try {
+        /*  if(copies==null)try {
             return ServerController.getInstance().getServiceCopy().getAllEquipment(equipmentID);
         } catch (Exception ex) {
             Logger.getLogger(Equipment.class.getName()).log(Level.SEVERE, null, ex);
         }
         return copies;*/
-      return copies;
+        return copies;
     }
 
     public void setCopies(List<Copy> copies) {
@@ -99,18 +105,58 @@ public class Equipment implements Serializable,IGeneralObject {
 
     @Override
     public String getColumnNamesForInsert() {
-       return "name,connection,specification"; }
+        return "name,connection,specification";
+    }
 
     @Override
     public String getInsertValues() {
-    StringBuilder sb = new StringBuilder();
-      sb.append("'").append(name).append("','").append(connection).append("','")
+        StringBuilder sb = new StringBuilder();
+        sb.append("'").append(name).append("','").append(connection).append("','")
                 .append(specification).append("'");
-        return sb.toString();    }
+        return sb.toString();
+    }
 
     @Override
     public void setId(int id) {
-        equipmentID=id;
+        equipmentID = id;
+    }
+
+    @Override
+    public IGeneralObject getObject(ResultSet rs) {
+        Equipment z = new Equipment();
+        try {
+            z.setEquipmentID(rs.getInt("equipmentID"));
+            z.setName(rs.getString("name"));
+            z.setConnection(rs.getString("connection"));
+            z.setSpecification(rs.getString("specification"));
+
+        } catch (SQLException e) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return z;
+    }
+
+    @Override
+    public String getObjectCase() {
+        return "equipmentID = " + equipmentID;
+    }
+
+    @Override
+    public List<IGeneralObject> getList(ResultSet rs) {
+        List<IGeneralObject> list = new ArrayList<>();
+        try {
+            while (rs.next()) {
+            Equipment z = new Equipment();
+                z.setEquipmentID(rs.getInt("equipmentID"));
+                z.setName(rs.getString("name"));
+                z.setConnection(rs.getString("connection"));
+                z.setSpecification(rs.getString("specification"));
+                list.add(z);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return list;
     }
 
 }

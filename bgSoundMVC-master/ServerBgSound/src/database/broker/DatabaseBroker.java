@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.IGeneralObject;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.database.connection.ConnectionFactory;
 
@@ -30,7 +32,6 @@ public class DatabaseBroker {
                     .append(generalObject.getInsertValues())
                     .append(")");
             String query = sb.toString();
-            System.out.println(query);
             Statement statement = connection.createStatement();
             statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
             ResultSet rs = statement.getGeneratedKeys();
@@ -48,5 +49,13 @@ public class DatabaseBroker {
             throw ex;
         }
     }
-
+public List<IGeneralObject> selectAll(IGeneralObject ide) throws Exception{
+        Connection connection = ConnectionFactory.getInstance().getConnection(); 
+        List<IGeneralObject> lista = new ArrayList<>();
+        String upit = "SELECT * FROM " + ide.getTableName();
+        Statement s = connection.createStatement();
+        ResultSet rs = s.executeQuery(upit);
+        lista = ide.getList(rs);
+        return lista;
+    }
 }

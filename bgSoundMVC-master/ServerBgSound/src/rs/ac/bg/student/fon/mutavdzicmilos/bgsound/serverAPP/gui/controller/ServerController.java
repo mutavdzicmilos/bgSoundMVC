@@ -6,6 +6,7 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.gui.controller;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Client;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain.Copy;
@@ -21,6 +22,8 @@ import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.impl.Servic
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.impl.ServiceEquipmentImpl;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.service.impl.ServiceRentImpl;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.so.AbstractGenericOperation;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.so.impl.GetAllClient;
+import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.so.impl.GetAllEquipment;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.so.impl.SaveClient;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.so.impl.SaveCopy;
 import rs.ac.bg.student.fon.mutavdzicmilos.bgsound.serverAPP.so.impl.SaveEquipment;
@@ -97,5 +100,15 @@ public class ServerController {
     public Equipment saveEquipment(Equipment entity) throws Exception {
         AbstractGenericOperation saveProduct = new SaveEquipment();
         return (Equipment) saveProduct.execute(entity);
+    }
+
+    public List<Client> selectAllClient(Client entity) throws Exception {
+        AbstractGenericOperation selectAllClient = new GetAllClient();
+        return (List<Client>) selectAllClient.execute(entity);
+    }
+
+    public List<Equipment> selectAllEquipment(Equipment entity) throws Exception {
+        AbstractGenericOperation selectAllEquipment = new GetAllEquipment();
+        return (List<Equipment>) selectAllEquipment.execute(entity);
     }
 }

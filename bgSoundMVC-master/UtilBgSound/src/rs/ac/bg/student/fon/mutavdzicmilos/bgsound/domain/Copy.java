@@ -6,7 +6,13 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -139,6 +145,46 @@ public class Copy implements Serializable, IGeneralObject {
     @Override
     public void setId(int id) {
         copyID = id;
+    }
+
+    @Override
+    public IGeneralObject getObject(ResultSet rs) {
+        Copy z = new Copy();
+        try {
+            z.setCopyID(rs.getInt("copyID"));
+            z.setDefect(rs.getString("defect"));
+            z.setWorking(rs.getBoolean("working"));
+            z.setAvailable(rs.getBoolean("available"));
+
+        } catch (SQLException e) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return z;
+    }
+
+    @Override
+    public String getObjectCase() {
+        return "equipmentID = " + equipment.getEquipmentID();
+    }
+
+    @Override
+    public List<IGeneralObject> getList(ResultSet rs) {
+        List<IGeneralObject> list = new ArrayList<>();
+        try {
+            Copy z = new Copy();
+            while (rs.next()) {
+                z.setCopyID(rs.getInt("copyID"));
+                z.setDefect(rs.getString("defect"));
+                z.setWorking(rs.getBoolean("working"));
+                z.setAvailable(rs.getBoolean("available"));
+
+                list.add(z);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return list;
+
     }
 
 }

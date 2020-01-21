@@ -6,6 +6,12 @@
 package rs.ac.bg.student.fon.mutavdzicmilos.bgsound.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -98,11 +104,12 @@ public class Client implements Serializable, IGeneralObject {
 
     @Override
     public String getColumnNamesForInsert() {
-      return "name,surname,JMBG,phone";
+        return "name,surname,JMBG,phone";
     }
+
     @Override
     public String getInsertValues() {
-         StringBuilder sb = new StringBuilder();
+        StringBuilder sb = new StringBuilder();
         sb.append("'").append(name).append("',")
                 .append("'").append(surname).append("','")
                 .append(JMBG).append("','")
@@ -112,7 +119,47 @@ public class Client implements Serializable, IGeneralObject {
 
     @Override
     public void setId(int id) {
-        clientID=id;
+        clientID = id;
     }
 
+    @Override
+    public IGeneralObject getObject(ResultSet rs) {
+        Client z = new Client();
+        try {
+            z.setClientID(rs.getInt("clientID"));
+            z.setJMBG(rs.getString("JMBG"));
+            z.setName(rs.getString("name"));
+            z.setSurname(rs.getString("surname"));
+            z.setPhone(rs.getString("phone"));
+
+        } catch (SQLException e) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return z;
+    }
+
+    @Override
+    public String getObjectCase() {
+        return "clientID=" + clientID;
+    }
+
+    @Override
+    public List<IGeneralObject> getList(ResultSet rs) {
+        List<IGeneralObject> list = new ArrayList<>();
+        try {
+            while (rs.next()) {
+            Client z = new Client();
+                z.setClientID(rs.getInt("clientID"));
+                z.setJMBG(rs.getString("JMBG"));
+                z.setName(rs.getString("name"));
+                z.setSurname(rs.getString("surname"));
+                z.setPhone(rs.getString("phone"));
+
+                list.add(z);
+            }
+        } catch (SQLException e) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return list;
+    }
 }
